@@ -1,0 +1,55 @@
+<section id="loaderDiv">
+    <article>
+        <div></div>
+    </article>
+</section>
+
+<style>
+    #loaderDiv {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        display: none;
+    }
+
+    #loaderDiv article {
+        position: absolute;
+        width: 140px; /* Tamaño del círculo */
+        height: 140px;
+        background-color: #1A6070;
+        border-radius: 50%;
+        animation: pulse 3s ease-in-out infinite;
+        transform-origin: center; /* Escala desde el centro */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transform-origin: center; /* Escala desde el centro */
+    }
+
+    #loaderDiv article div {
+        position: absolute;
+ 
+        border-radius: 50%;
+        width: 75px;
+        height: 75px;
+        background-color: #0B3441;
+        animation: pulse 3s ease-in-out infinite;
+        transform-origin: center; /* Escala desde el centro */
+
+    }
+
+    @keyframes pulse {
+        0%, 100% {
+            transform: scale(0.9); /* Tamaño normal */
+            opacity: 0.95;
+        }
+        50% {
+            transform: scale(1.65); /* Incremento del 15% */
+            opacity: 0.75;
+        }
+    }
+</style>

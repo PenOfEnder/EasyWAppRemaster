@@ -1,0 +1,86 @@
+---
+import LogoCbtis from "../../components/logos/logo-cbtis.astro";
+import LogoCaed from "../../components/logos/logo-caed.astro";
+
+import Bienvenido from "../../components/logos/bienvenido.astro";
+import Loader from "../../components/loaders/loading-2.astro";
+
+import "../../style/base.css";
+
+import IconDictionary from "../../components/icons/icon-dictionary.astro";
+import IconTranslate from "../../components/icons/icon-translate.astro";
+import IconBraille from "../../components/icons/icon-braille.astro";
+
+import LocalVersion from "../../utils/localVersion";
+---
+
+<body
+    class="bg-gradient-generic
+    grid
+    grid-rows-5
+    grid-cols-1
+    h-[100vh]
+    place-content-around"
+    id="body_choose"
+>
+    <header class="row-start-1 flex justify-stretch pt-3">
+        <div class="flex justify-evenly w-full h-full">
+            <LogoCbtis size="100%" color="#0b3441" />
+        </div>
+        <Bienvenido size="100%" color="#0b3441" />
+        <div class="flex justify-between w-full h-full">
+            <LogoCaed size="100%" color="#0b3441" />
+        </div>
+    </header>
+
+    <main class="row-start-2 row-span-3 flex justify-center items-center">
+        <section class="flex flex-col justify-center items-center"> 
+            <button
+                id="dictionary-btn"
+                title="Traductor"
+                class="bg-[#EDFEFE] w-[144px] h-[144px] rounded-[12.5px] mx-15 flex flex-col justify-center items-center
+                mb-3 drop-shadow-xl
+                "
+            >
+                <IconDictionary size="75%" />
+            </button>
+
+            <label class="c-placeholder-text text-xl text-[#0B3441]" for="">Diccionario</label>
+        </section>
+
+        <section class="flex flex-col justify-center items-center">
+            <button
+                id="translate-btn"
+                title="Diccionario"
+                class="bg-[#EDFEFE] w-[144px] h-[144px] rounded-[12.5px] mx-15 flex justify-center items-center
+                mb-3 drop-shadow-xl
+                "
+            >
+                <IconTranslate size="75%" />
+            </button>
+            <label class="c-placeholder-text text-xl text-[#0B3441]" for="">Traductor</label>
+        </section>
+
+        <section class="flex flex-col justify-center items-center">
+            <button
+                id="braille-btn"
+                title="Braile"
+                class="bg-[#EDFEFE] w-[144px] h-[144px] rounded-[12.5px] mx-15 flex justify-center items-center
+                mb-3 drop-shadow-xl
+                "
+            >
+                <IconBraille size="75%" />
+            </button>
+            <label class="c-placeholder-text text-xl text-[#0B3441]" for="">Braille</label>
+        </section>
+    </main>
+
+    <footer class="row-start-5 flex flex-col-reverse align-center">
+        <span
+            class="text-center text-lg text-[#FFFFFF] font-[600] c-placeholder-text"
+        >
+            Versión {LocalVersion}
+            <br /> Designed by DevSpark
+        </span>
+    </footer>
+</body>

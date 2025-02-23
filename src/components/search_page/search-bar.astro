@@ -1,0 +1,90 @@
+---
+import IconX from "../icons/icon-x.astro";
+
+
+interface Props {
+    color: string;
+    size?: string;
+    placeholder: string;
+    destination?: string;
+    paginaPrincipal?: boolean;
+}
+const { color, size, placeholder, destination, paginaPrincipal } = Astro.props;
+
+const classes = "sm:w-3/4 lg:w-1/2 flex p-2 rounded-[12.5px]";
+---
+
+<div class={classes} style={`background-color: ${color}cc;`}>
+    <form
+        class={`flex items-center justify-between w-full ${paginaPrincipal}`}
+        id="buscar"
+    >
+        <input
+            type="text"
+            id="searchInput"
+            placeholder={placeholder}
+            class="outline-none bg-transparent caret-[#0B3441] placeholder:text-[#1a4f5f] w-full px-2 py-1 text-[#0B3441] c-placeholder-text"
+        />
+        <button id="deleteContent" class="cursor-pointer p-0 hidden">
+            <IconX color="#0B3441" size="40px" />
+        </button>
+        <button type="submit" id="send" class="cursor-pointer mx-2">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="40px"
+                height="40px"
+                viewBox="0 0 24 24"
+                ><path fill="#0B3441" d="m2 21l21-9L2 3v7l15 2l-15 2z"
+                ></path></svg
+            >
+        </button>
+    </form>
+    
+</div>
+
+<script>
+    document
+        .querySelector("#buscar")
+        ?.addEventListener("submit", (e: Event) => submitForm(e));
+
+    async function submitForm(e: Event) {
+        e.preventDefault();
+
+        const inputBuscar = document.querySelector(
+            "#searchInput",
+        ) as HTMLInputElement | null;
+
+        if (inputBuscar) {
+            const texto = inputBuscar.value;
+
+            try {
+                document.getElementById("loaderDiv").style.display = "flex";
+                const respuesta = await fetch(
+                    "http://localhost:8080/traducirPalabraGroq",{
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: texto,
+                    }
+                );
+                if (!respuesta.ok) {
+                    throw new Error("Error en la respuesta del servidor");
+                }
+                let json = await respuesta.json();
+                console.log(json);
+                json["Palabra"] = texto;
+                localStorage.setItem("traduccionData", JSON.stringify(json));
+                // Opcional: disparar evento para notificar cambios
+                window.dispatchEvent(new Event("traduccionActualizada"));
+                if (e.target instanceof Element && e.target.classList.contains("true")) {
+                    window.location.href = "/translate-page";
+                }
+            } catch (error) {
+                document.getElementById("loaderDiv").style.display = "none";
+                console.error("Error:", error);
+            }
+        }
+    }
+
+</script>

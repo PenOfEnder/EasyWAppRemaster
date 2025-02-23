@@ -1,0 +1,57 @@
+---
+import "../style/base.css";
+
+import IconLeftArrow from "../style/icon-left-arrow.astro";
+import IconSettings from "../style/icon-settings.astro";
+
+import NewSearchBar from "../components/search_page/new-search-bar.astro";
+
+import LocalVersion from "../utils/localVersion";
+---
+
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Diccionario pe</title>
+    </head>
+    <body
+        class="bg-gradient-generic flex flex-col justify-evenly items-center h-screen"
+    >
+        <nav class="flex justify-between items-center py-3 w-5/6">
+            <a
+                href="/"
+                class="flex justify-center bg-[#edfefe] p-[10px] rounded-[25px]"
+                aria-label="Regresar al inicio"
+                title="Volver al inicio"
+            >
+                <span class="w-[50%]">
+                    <IconLeftArrow size={"80px"} color="#083441" />
+                </span>
+            </a>
+            <div class="flex justify-center w-3/4 h-full">
+                <NewSearchBar
+                    color="#edfefe"
+                    placeholder="Buscar en el diccionario"
+                />
+            </div>
+            <div
+                class="flex justify-center bg-[#edfefe] p-[10px] rounded-[25px]"
+                title=""
+            >
+                <IconSettings size={"80px"} color="#083441" />
+            </div>
+        </nav>
+        <main class="bg-[#EDFEFE80] h-5/6 w-5/6 rounded-[12.5px]"></main>
+
+        <footer class="text-center">
+            <span
+                class="text-center text-lg text-[#FFFFFF] font-[600] c-placeholder-text"
+            >
+                Versión {LocalVersion}
+                <br /> Designed by DevSpark
+            </span>
+        </footer>
+    </body>
+</html>

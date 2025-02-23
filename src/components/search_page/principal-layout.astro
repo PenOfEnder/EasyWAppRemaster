@@ -1,0 +1,27 @@
+---
+import ViewTransitions from 'astro/components/ViewTransitions.astro';
+
+interface Props{
+    pageTitle?: string;
+}   
+
+const {pageTitle} = Astro.props;
+
+
+import '../../styles/base.css'
+
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palabra facil {"- " + pageTitle}</title>
+
+    <ViewTransitions/>
+</head>
+<body class="bg-gradient-generic flex flex-col w-[100vw]">
+    <slot/>
+</body>
+</html>
