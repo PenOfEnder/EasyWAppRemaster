@@ -1,0 +1,76 @@
+---
+interface Props {
+    original_word: string /* Por lo general, viene en español */;
+    second_word: string /* Por lo general, viene en inglés */;
+    third_word: string /* Por lo general, viene en aleman */;
+
+    original_word_meaning: string /* Por lo general, viene en español */;
+    second_word_meaning: string /* Por lo general, viene en inglés */;
+    third_word_meaning: string /* Por lo general, viene en aleman */;
+
+    video_url: string;
+}
+
+const {
+    original_word,
+    second_word,
+    third_word,
+    original_word_meaning,
+    second_word_meaning,
+    third_word_meaning,
+    video_url,
+} = Astro.props;
+---
+
+<article class=" border-black border-2 rounded-[12.5px] p-5 relative mt-5">
+    <div
+        class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#1A5F70] text-center px-2 py-1 rounded-[5px]"
+    >
+        <p class="text-[14pt] text-[#EDFEFE] ">{original_word}</p>
+    </div>
+
+    <ul>
+        <li>
+            <strong>
+                • Español: 
+            </strong>
+            <section class="pl-4">
+                a. 
+                <span class="pl-4">
+                    {original_word_meaning}
+                </span>
+            </section>
+        </li>
+        <li>
+            <strong>
+                • {second_word} (Inglés): 
+            </strong>
+            <section class="pl-4">
+                a. 
+                <span class="pl-4">
+                    {second_word_meaning}
+                </span>
+            </section>
+        </li>
+        <li>
+            <strong>
+                • {third_word} (Alemán): 
+            </strong>
+            <section class="pl-4">
+                a. 
+                <span class="pl-4">
+                    {third_word_meaning}
+                </span>
+            </section>
+        </li>
+    </ul>
+
+    <div>
+        <h2 class="font-bold">Lengua de señas mexicana ></h2>
+        <!-- El > hay que cambiarlo por un icon -->
+    </div>
+
+    <div class="hidden">
+        <iframe src={video_url} title="Video de la palabra"></iframe>
+    </div>
+</article>

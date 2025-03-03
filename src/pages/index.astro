@@ -1,50 +1,18 @@
 ---
-import WordFrame from "../components/dictionary/word_frame.astro";
+
 import Choose_Index from "../layouts/index/choose_index.astro";
+
 
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Easy Word App v2.0</title>
+        <Choose_Index/>
     </head>
     
-    <Choose_Index />
-
-    <script>
-        let buttons = [
-            document.getElementById("dictionary-btn"),
-            document.getElementById("translate-btn"),
-            document.getElementById("braille-btn"),
-        ].filter(Boolean); // Filtra elementos nulos
-
-        
-        buttons.forEach((element) => {
-            element?.addEventListener ("click", function () {
-
-                let btn_selected = element.id;
-                let ancor = document.createElement("a");
-
-                switch(btn_selected){
-                    case "dictionary-btn":
-                        ancor.href = "/diccionario";
-                    break;
-                    
-                    case "translate-btn":
-                        ancor.href = "/traductor";
-                    break;
-                    
-                    case "braille-btn":
-                        ancor.href = "/braile";
-                    break;
-                }
-
-                ancor.click();
-            });
-        });
-    </script>
     
 </html>

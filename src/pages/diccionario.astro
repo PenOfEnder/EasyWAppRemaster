@@ -1,12 +1,21 @@
 ---
 import "../style/base.css";
 
+import { ClientRouter, fade, slide } from 'astro:transitions';
+
 import IconLeftArrow from "../style/icon-left-arrow.astro";
 import IconSettings from "../style/icon-settings.astro";
+import LogoCbtis from "../components/logos/logo-cbtis.astro";
+import LogoCaed from "../components/logos/logo-caed.astro";
 
-import NewSearchBar from "../components/search_page/new-search-bar.astro";
+import DictionarySearchBar from "../components/dictionary/dictionary-search-bar.astro";
+import DictionaryCard from "../components/dictionary/dictionary-card.astro";
 
 import LocalVersion from "../utils/localVersion";
+
+const letters = Array.from({ length: 26 }, (_, i) =>
+    String.fromCharCode(65 + i),
+);
 ---
 
 <!doctype html>
@@ -14,10 +23,13 @@ import LocalVersion from "../utils/localVersion";
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Diccionario pe</title>
+        <title>Diccionario</title>
+        <ClientRouter/>
     </head>
+    
+
     <body
-        class="bg-gradient-generic flex flex-col justify-evenly items-center h-screen"
+        class="bg-gradient-generic flex flex-col justify-evenly items-center h-screen max-h-[100vh] "
     >
         <nav class="flex justify-between items-center py-3 w-5/6">
             <a
@@ -30,8 +42,8 @@ import LocalVersion from "../utils/localVersion";
                     <IconLeftArrow size={"80px"} color="#083441" />
                 </span>
             </a>
-            <div class="flex justify-center w-3/4 h-full">
-                <NewSearchBar
+            <div class="flex justify-center w-3/4 h-full h-max-[125px]">
+                <DictionarySearchBar
                     color="#edfefe"
                     placeholder="Buscar en el diccionario"
                 />
@@ -43,9 +55,118 @@ import LocalVersion from "../utils/localVersion";
                 <IconSettings size={"80px"} color="#083441" />
             </div>
         </nav>
-        <main class="bg-[#EDFEFE80] h-5/6 w-5/6 rounded-[12.5px]"></main>
+        <main class="bg-[#EDFEFE80] h-5/7 w-5/6 rounded-[12.5px]">
+            <section class="grid grid-cols-3 grid-rows-1 gap-5 p-6 pt-10 overflow-y-auto max-h-[96%]">
+                <!-- Priueba del nuevo componente, sera temporal -->
 
-        <footer class="text-center">
+                <aside
+                    class="col-span-3 flex justify-between items-center w-[100%] h-full sticky"
+                >
+                    {
+                        letters.map((letter) => (
+                            <a
+                                id={letter}
+                                href={"#letter" + letter}
+                                class="text-[#063441] text-[20px] font-[600] "
+                            >
+                                {letter + ""}
+                            </a>
+                        ))
+                    }
+                </aside>
+
+                <DictionaryCard
+                    original_word="Casa"
+                    second_word="House"
+                    third_word="Haus"
+                    original_word_meaning="Lugar donde vives"
+                    second_word_meaning="Place where you live"
+                    third_word_meaning="Ort, wo du lebst"
+                    video_url="https://www.youtube.com/embed/1w8Z0UOXVaY"
+                />
+
+                <DictionaryCard
+                    original_word="Vaso"
+                    second_word="Glass"
+                    third_word="Glas"
+                    original_word_meaning="Recipiente para líquidos"
+                    second_word_meaning="Container for liquids"
+                    third_word_meaning="Behälter für Flüssigkeiten"
+                    video_url="https://www.youtube.com/embed/1w8Z0UOXVaY"
+                />
+
+                <DictionaryCard
+                    original_word="Perro"
+                    second_word="Dog"
+                    third_word="Hund"
+                    original_word_meaning="Animal doméstico"
+                    second_word_meaning="Domestic animal"
+                    third_word_meaning="Haustier"
+                    video_url="https://www.youtube.com/embed/1w8Z0UOXVaY"
+                />
+
+                <DictionaryCard
+                    original_word="Casa"
+                    second_word="House"
+                    third_word="Haus"
+                    original_word_meaning="Lugar donde vives"
+                    second_word_meaning="Place where you live"
+                    third_word_meaning="Ort, wo du lebst"
+                    video_url="https://www.youtube.com/embed/1w8Z0UOXVaY"
+                />
+
+                <DictionaryCard
+                    original_word="Vaso"
+                    second_word="Glass"
+                    third_word="Glas"
+                    original_word_meaning="Recipiente para líquidos"
+                    second_word_meaning="Container for liquids"
+                    third_word_meaning="Behälter für Flüssigkeiten"
+                    video_url="https://www.youtube.com/embed/1w8Z0UOXVaY"
+                />
+
+                <DictionaryCard
+                    original_word="Perro"
+                    second_word="Dog"
+                    third_word="Hund"
+                    original_word_meaning="Animal doméstico"
+                    second_word_meaning="Domestic animal"
+                    third_word_meaning="Haustier"
+                    video_url="https://www.youtube.com/embed/1w8Z0UOXVaY"
+                />
+
+                <DictionaryCard
+                    original_word="Casa"
+                    second_word="House"
+                    third_word="Haus"
+                    original_word_meaning="Lugar donde vives"
+                    second_word_meaning="Place where you live"
+                    third_word_meaning="Ort, wo du lebst"
+                    video_url="https://www.youtube.com/embed/1w8Z0UOXVaY"
+                />
+
+                <DictionaryCard
+                    original_word="Vaso"
+                    second_word="Glass"
+                    third_word="Glas"
+                    original_word_meaning="Recipiente para líquidos"
+                    second_word_meaning="Container for liquids"
+                    third_word_meaning="Behälter für Flüssigkeiten"
+                    video_url="https://www.youtube.com/embed/1w8Z0UOXVaY"
+                />
+
+                <DictionaryCard
+                    original_word="Perro"
+                    second_word="Dog"
+                    third_word="Hund"
+                    original_word_meaning="Animal doméstico"
+                    second_word_meaning="Domestic animal"
+                    third_word_meaning="Haustier"
+                    video_url="https://www.youtube.com/embed/1w8Z0UOXVaY"
+                />
+            </section>
+        </main>
+        <footer class="text-center flex items-center h-full">
             <span
                 class="text-center text-lg text-[#FFFFFF] font-[600] c-placeholder-text"
             >

@@ -1,4 +1,7 @@
 ---
+
+import { ClientRouter, fade, slide } from 'astro:transitions';
+
 import LogoCbtis from "../../components/logos/logo-cbtis.astro";
 import LogoCaed from "../../components/logos/logo-caed.astro";
 
@@ -14,6 +17,7 @@ import IconBraille from "../../components/icons/icon-braille.astro";
 import LocalVersion from "../../utils/localVersion";
 ---
 
+
 <body
     class="bg-gradient-generic
     grid
@@ -23,6 +27,8 @@ import LocalVersion from "../../utils/localVersion";
     place-content-around"
     id="body_choose"
 >
+    <ClientRouter/>
+
     <header class="row-start-1 flex justify-stretch pt-3">
         <div class="flex justify-evenly w-full h-full">
             <LogoCbtis size="100%" color="#0b3441" />
@@ -34,44 +40,58 @@ import LocalVersion from "../../utils/localVersion";
     </header>
 
     <main class="row-start-2 row-span-3 flex justify-center items-center">
-        <section class="flex flex-col justify-center items-center"> 
+        <section
+            class="flex flex-col justify-center items-center cursor-pointer 
+            hover:scale-110 transition-transform ease-in-out duration-600 hover:drop-shadow-xl"
+        >
             <button
                 id="dictionary-btn"
                 title="Traductor"
                 class="bg-[#EDFEFE] w-[144px] h-[144px] rounded-[12.5px] mx-15 flex flex-col justify-center items-center
                 mb-3 drop-shadow-xl
-                "
+                cursor-pointer"
             >
                 <IconDictionary size="75%" />
             </button>
 
-            <label class="c-placeholder-text text-xl text-[#0B3441]" for="">Diccionario</label>
+            <label
+                class="c-placeholder-text text-xl text-[#0B3441] cursor-pointer"
+                for="dictionary-btn">Diccionario</label
+            >
         </section>
 
-        <section class="flex flex-col justify-center items-center">
+        <section class="flex flex-col justify-center items-center cursor-pointer
+            hover:scale-110 transition-transform ease-in-out duration-600 hover:drop-shadow-xl">
             <button
                 id="translate-btn"
                 title="Diccionario"
                 class="bg-[#EDFEFE] w-[144px] h-[144px] rounded-[12.5px] mx-15 flex justify-center items-center
                 mb-3 drop-shadow-xl
-                "
+                cursor-pointer"
             >
                 <IconTranslate size="75%" />
             </button>
-            <label class="c-placeholder-text text-xl text-[#0B3441]" for="">Traductor</label>
+            <label
+                class="c-placeholder-text text-xl text-[#0B3441] cursor-pointer"
+                for="translate-btn">Traductor</label
+            >
         </section>
 
-        <section class="flex flex-col justify-center items-center">
+        <section class="flex flex-col justify-center items-center cursor-pointer
+            hover:scale-110 transition-transform ease-in-out duration-600 hover:drop-shadow-xl">
             <button
                 id="braille-btn"
                 title="Braile"
                 class="bg-[#EDFEFE] w-[144px] h-[144px] rounded-[12.5px] mx-15 flex justify-center items-center
                 mb-3 drop-shadow-xl
-                "
+                cursor-pointer"
             >
                 <IconBraille size="75%" />
             </button>
-            <label class="c-placeholder-text text-xl text-[#0B3441]" for="">Braille</label>
+            <label
+                class="c-placeholder-text text-xl text-[#0B3441] cursor-pointer"
+                for="braille-btn">Braille</label
+            >
         </section>
     </main>
 
@@ -84,3 +104,36 @@ import LocalVersion from "../../utils/localVersion";
         </span>
     </footer>
 </body>
+
+
+<script>
+    let buttons = [
+        document.getElementById("dictionary-btn"),
+        document.getElementById("translate-btn"),
+        document.getElementById("braille-btn"),
+    ].filter(Boolean); // Filtra elementos nulos
+
+    
+    buttons.forEach((element) => {
+        element?.addEventListener ("click", function () {
+
+            let btn_selected = element.id;
+            let ancor = document.createElement("a");
+
+            switch(btn_selected){
+                case "dictionary-btn":
+                    ancor.href = "/diccionario";
+                break;
+                
+                case "translate-btn":
+                    ancor.href = "/traductor";
+                break;
+                
+                case "braille-btn":
+                    ancor.href = "/braille";
+                break;
+            }
+            ancor.click();
+        });
+    });
+</script>

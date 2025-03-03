@@ -1,0 +1,61 @@
+---
+import IconX from "../icons/icon-x.astro";
+
+interface Props {
+    placeholder: string;
+    color: string;
+    height?: string;
+}
+
+const { placeholder, color, height } = Astro.props;
+
+const c_classes = "bg-[" + color + "] w-full rounded-[25px] px-4";
+---
+
+<section class={c_classes}>
+    <form action="" class="flex justify-between font-xl h-full">
+        <input
+            id="search-bar-input"
+            type="text"
+            class="h-full w-full text-3xl pl-2 placeholder:text-3xl outline-none"
+            placeholder={placeholder}
+        />
+
+        <button
+            id="button-x"
+            type="reset"
+            class="h-full p-4 cursor-pointer hidden"
+        >
+            <IconX size="40px" color="#0B3441" />
+        </button>
+        <button type="submit" class="h-auto flex justify-center items-center">
+            
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="auto"
+                height="60%"
+                viewBox="0 0 24 24"
+                ><path fill="#0B3441" d="m2 21l21-9L2 3v7l15 2l-15 2z"
+                ></path></svg
+            >
+        
+    </button>
+    </form>
+</section>
+
+<script>
+    addEventListener("DOMContentLoaded", () => {
+        const $input = document.querySelector(
+            "#search-bar-input",
+        ) as HTMLInputElement;
+        const $botonx = document.getElementById("button-x");
+
+        $input?.addEventListener("input", () => {
+            const input_value = $input.value;
+            if (input_value.length > 0) $botonx?.classList.remove("hidden");
+            else {
+                $botonx?.classList.add("hidden");
+            }
+        });
+    });
+</script>

@@ -1,0 +1,84 @@
+---
+import { ClientRouter, fade, slide } from "astro:transitions";
+import "../style/base.css";
+
+import BrailleSearchBar from "../components/braille/braille-search-bar.astro";
+import CustomLetter from "../components/braille/custom-letter.astro";
+import BrailleTimeline from "../components/braille/time-line.jsx";
+import BrailleNavigationControls from "../components/braille/controlButtons-time-line.jsx"
+
+import LogoCaed from "../components/logos/logo-caed.astro";
+import LogoCbtis from "../components/logos/logo-cbtis.astro";
+import IconLeftArrow from "../style/icon-left-arrow.astro";
+
+import LocalVersion from "../utils/localVersion";
+---
+
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Asistente de braille</title>
+        <ClientRouter />
+    </head>
+    <body
+        class="bg-gradient-generic flex flex-col justify-evenly items-center h-screen"
+    >
+        <nav class="flex justify-between items-center py-3 w-5/6 h-1/5">
+            <a href="https://cbtis212.online/" class="h-full">
+                <LogoCbtis size="100%" color="#0B3441" />
+            </a>
+            <div class="flex justify-beetween w-3/5 gap-x-10 h-full">
+                <a
+                    href="/"
+                    class="flex justify-center items-center aspect-square bg-[#edfefe] p-[10px] rounded-[25px]"
+                    aria-label="Regresar al inicio"
+                    title="Volver al inicio"
+                >
+                    <span class="ml-[25%]">
+                        <IconLeftArrow size={"100%"} color="#083441" />
+                    </span>
+                </a>
+
+                <div class="flex justify-center w-full h-full">
+                    <BrailleSearchBar
+                        color="#edfefe"
+                        placeholder="Traducir a braille"
+                    />
+                </div>
+            </div>
+            <a href="https://caed.sep.gob.mx/" class="h-full">
+                <LogoCaed size="100%" color="#0B3441" />
+            </a>
+        </nav>
+        <main
+            class="bg-[#EDFEFE80] h-5/6 w-5/6 rounded-[12.5px] grid grid-rows-2"
+        >
+
+            
+            <section class="grid grid-flow-col gap-2 overflow-x-auto">
+                <CustomLetter letter="b" />
+                <CustomLetter letter="r" />
+                <CustomLetter letter="a" />
+                <CustomLetter letter="i" />
+                <CustomLetter letter="l" />
+                <CustomLetter letter="l" />
+                <CustomLetter letter="e" />
+            </section>
+
+            <section class="w-5/6 flex items-center justify-center">
+                <BrailleTimeline letters="Braille" client:load/>
+            </section>
+
+        </main>
+        <footer class="text-center">
+            <span
+                class="text-center text-lg text-[#FFFFFF] font-[600] c-placeholder-text"
+            >
+                Versión {LocalVersion}
+                <br /> Designed by DevSpark
+            </span>
+        </footer>
+    </body>
+</html>
