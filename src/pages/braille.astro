@@ -5,7 +5,7 @@ import "../style/base.css";
 import BrailleSearchBar from "../components/braille/braille-search-bar.astro";
 import CustomLetter from "../components/braille/custom-letter.astro";
 import BrailleTimeline from "../components/braille/time-line.jsx";
-import BrailleNavigationControls from "../components/braille/controlButtons-time-line.jsx"
+import BrailleNavigationControls from "../components/braille/controlButtons-time-line.jsx";
 
 import LogoCaed from "../components/logos/logo-caed.astro";
 import LogoCbtis from "../components/logos/logo-cbtis.astro";
@@ -53,24 +53,26 @@ import LocalVersion from "../utils/localVersion";
             </a>
         </nav>
         <main
-            class="bg-[#EDFEFE80] h-5/6 w-5/6 rounded-[12.5px] grid grid-rows-2"
+            class="bg-[#EDFEFE80] h-5/6 w-5/6 max-h-[70%] rounded-[12.5px] grid grid-rows-3"
         >
-
-            
-            <section class="grid grid-flow-col gap-2 overflow-x-auto">
-                <CustomLetter letter="b" />
-                <CustomLetter letter="r" />
-                <CustomLetter letter="a" />
-                <CustomLetter letter="i" />
-                <CustomLetter letter="l" />
-                <CustomLetter letter="l" />
-                <CustomLetter letter="e" />
+            <section
+                class="row-span-2 flex gap-5 overflow-x-auto w-full pb-2 items-center px-10 scrollbar-hide"
+            >
+                <div class="flex gap-10 min-w-max">
+                    <CustomLetter letter="b" />
+                    <CustomLetter letter="r" />
+                    <CustomLetter letter="a" />
+                    <CustomLetter letter="i" />
+                    <CustomLetter letter="l" />
+                    <CustomLetter letter="l" />
+                    <CustomLetter letter="e" />
+                    <CustomLetter letter="e" />
+                </div>
             </section>
 
-            <section class="w-5/6 flex items-center justify-center">
-                <BrailleTimeline letters="Braille" client:load/>
+            <section class="w-full flex items-center justify-center">
+                <BrailleTimeline letters="Braille" onLetterChange={}/>
             </section>
-
         </main>
         <footer class="text-center">
             <span
