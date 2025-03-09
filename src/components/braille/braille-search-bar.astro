@@ -9,15 +9,9 @@ interface Props {
 
 const { placeholder, color, height } = Astro.props;
 
-const c_classes = "bg-[" + color + "] w-full rounded-[25px] px-4";
-
-const palabraParseada = {
-    array: ["P", "a", "r", "s", "e", "a", "d", "A"],
-    palabra: "ParseadA",
-};
 ---
 
-<section class={c_classes}>
+<section class={`w-full rounded-[25px] px-4 bg-[${color}]`}>
     <form action="" class="flex justify-between font-xl h-full" id="searchForm">
         <input
             id="search-bar-input"

@@ -1,4 +1,5 @@
 ---
+import { string } from "astro:schema";
 import brailleMap from "../../utils/brailleMap.js";
 
 interface Props {
@@ -18,6 +19,9 @@ if (letter === letter.toUpperCase()) {
 const letraxd = letter.toLowerCase();
 
 const letterArray = brailleMap[letraxd] || [0, 0, 0, 0, 0, 0];
+
+
+
 ---
 
 <section class="flex flex-col items-center">
