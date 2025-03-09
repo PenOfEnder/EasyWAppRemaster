@@ -53,13 +53,13 @@ const { title, idParrafo } = Astro.props;
   document.querySelectorAll("#s-englishParagraph , #s-franchiseParagraph , #s-germanParagraph").forEach(boton => {
     boton.addEventListener("click", (e) => {
       e.preventDefault();
-      let texto = document.getElementById(boton.id.replace("s-", "")).textContent;
+      let texto = document.getElementById(boton.id.replace("s-", ""))?.textContent;
       if(boton.id.replace("s-", "") === "germanParagraph"){
-        let traduccion = document.getElementById(boton.id.replace("s-", "")).querySelector(".traduccion").textContent;
-        let articulo = document.getElementById(boton.id.replace("s-", "")).querySelector(".articulo").textContent;        
+        let traduccion = document.getElementById(boton.id.replace("s-", ""))?.querySelector(".traduccion")?.textContent;
+        let articulo = document.getElementById(boton.id.replace("s-", ""))?.querySelector(".articulo")?.textContent;        
         texto = `${articulo} ${traduccion}`;
       }
-      if(texto.includes("Articulo:")){
+      if(texto?.includes("Articulo:")){
         texto = texto.replace("Articulo:", "");
       }
       texto = `         ${texto}`;
