@@ -1,90 +1,103 @@
 ---
-import { ClientRouter, fade, slide } from "astro:transitions";
 import "../style/base.css";
-
-import BrailleSearchBar from "../components/braille/braille-search-bar.astro";
-import CustomLetter from "../components/braille/custom-letter.astro";
-import BrailleTimeline from "../components/braille/time-line.jsx";
+import ClientRouter from "astro/components/ClientRouter.astro";
 
 import LogoCaed from "../components/logos/logo-caed.astro";
 import LogoCbtis from "../components/logos/logo-cbtis.astro";
+
 import IconLeftArrow from "../style/icon-left-arrow.astro";
 
+import IconAbc from "../components/icons/icon-abc.astro";
+import IconBrailleDots from "../components/icons/icon-braille-dots.astro";
+
 import LocalVersion from "../utils/localVersion";
-import Loader from "../components/loaders/loading-2.astro";
-
-const handleLetterChange = (index: number) => {
-    console.log(`Letra cambiada a índice: ${index}`);
-    // Aquí tu lógica adicional
-};
-export const prerender = false; // Hace que la página se renderice en el servidor dinámicamente
-
-const url = new URL(Astro.url);
-const word = url.searchParams.get("word") || "xd"; // "xd" es el valor por defecto si no hay palabra
-console.log("Palabra obtenida:", word);
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Asistente de braille</title>
+        <title>Sección de braille</title>
         <ClientRouter />
     </head>
     <body
-        class="bg-gradient-generic flex flex-col justify-evenly items-center h-screen"
+        class="bg-gradient-generic grid grid-rows-3 place-items-center h-screen"
     >
-        <Loader />
-        <nav class="flex justify-between items-center py-3 w-5/6 h-1/5">
+        <nav class="flex justify-around items-center w-5/6 h-1/2">
             <a href="https://cbtis212.online/" class="h-full">
                 <LogoCbtis size="100%" color="#0B3441" />
             </a>
-            <div class="flex justify-beetween w-3/5 gap-x-10 h-full">
+            <div class="flex justify-between items-center gap-x-10 h-full">
+                <h2 class="text-4xl c-title-text text-[#0B3441]">Seccion de braille</h2>
+            </div>
+
+            <a href="https://caed.sep.gob.mx/" class="h-full flex">
+                <LogoCaed size="100%" color="#0B3441" />
+            </a>
+        </nav>
+        <main class="flex justify-evenly">
+            <section
+                class="flex flex-col justify-center items-center cursor-pointer
+            hover:scale-110 transition-transform ease-in-out duration-600 hover:drop-shadow-xl"
+            >
                 <a
-                    href="/"
-                    class="flex justify-center items-center aspect-square bg-[#edfefe] p-[10px] rounded-[25px]"
-                    aria-label="Regresar al inicio"
-                    title="Volver al inicio"
+                    id="dictionary-btn"
+                    title="Traductor"
+                    class="bg-[#EDFEFE] w-[144px] h-[144px] rounded-[12.5px] mx-15 flex flex-col justify-center items-center
+                mb-3 drop-shadow-xl
+                cursor-pointer"
+                    href="../"
                 >
                     <span class="ml-[25%]">
                         <IconLeftArrow size={"100%"} color="#083441" />
                     </span>
                 </a>
-
-                <div class="flex justify-center w-full h-full">
-                    <BrailleSearchBar
-                        color="#edfefe"
-                        placeholder="Traducir a braille"
-                    />
-                </div>
-            </div>
-            <a href="https://caed.sep.gob.mx/" class="h-full">
-                <LogoCaed size="100%" color="#0B3441" />
-            </a>
-        </nav>
-        <main
-            class="bg-[#EDFEFE80] h-5/6 w-5/6 max-h-[70%] rounded-[12.5px] grid grid-rows-3"
-        >
-            <section
-                class="row-span-2 flex gap-5 overflow-x-auto w-full pb-2 items-center px-10 scrollbar-hide"
-                id="idTemporal"
-            >
-                <div
-                    class="flex items-center gap-10 min-w-max"
-                    id="brailleContainer"
+                <label
+                    class="c-placeholder-text text-xl text-[#0B3441] cursor-pointer"
+                    for="dictionary-btn">Regresar</label
                 >
-                </div>
             </section>
-
             <section
-                class="w-full flex items-center justify-center"
-                id="timeline-container"
+                class="flex flex-col justify-center items-center cursor-pointer
+            hover:scale-110 transition-transform ease-in-out duration-600 hover:drop-shadow-xl"
             >
-                {word}
+                <a
+                    id="dictionary-btn"
+                    title="Traductor"
+                    class="bg-[#EDFEFE] w-[144px] h-[144px] rounded-[12.5px] mx-15 flex flex-col justify-center items-center
+                mb-3 drop-shadow-xl ml-[25%]
+                cursor-pointer"
+                    href="/braille/abecedario"
+                >
+                    <IconAbc size="75%" />
+                </a>
+                <label
+                    class="c-placeholder-text text-xl text-[#0B3441] cursor-pointer"
+                    for="dictionary-btn">Abecedario en braille</label
+                >
+            </section>
+            <section
+                class="flex flex-col justify-center items-center cursor-pointer
+            hover:scale-110 transition-transform ease-in-out duration-600 hover:drop-shadow-xl"
+            >
+                <a
+                    id="dictionary-btn"
+                    title="Traductor"
+                    class="bg-[#EDFEFE] w-[144px] h-[144px] rounded-[12.5px] mx-15 flex flex-col justify-center items-center
+                mb-3 drop-shadow-xl
+                cursor-pointer"
+                href="/braille/traductor"
+                >
+                    <IconBrailleDots size="75%" />
+                </a>
+                <label
+                    class="c-placeholder-text text-xl text-[#0B3441] cursor-pointer"
+                    for="dictionary-btn">Asistente de braille</label
+                >
             </section>
         </main>
-        <footer class="text-center">
+        <footer class="text-center flex items-center">
             <span
                 class="text-center text-lg text-[#FFFFFF] font-[600] c-placeholder-text"
             >
@@ -92,74 +105,5 @@ console.log("Palabra obtenida:", word);
                 <br /> Designed by DevSpark
             </span>
         </footer>
-    </body><script>
-        document.addEventListener("astro:page-load", () => {
-            const brailleDataStr = localStorage.getItem("objectWordSaved");
-            if (!brailleDataStr) return;
-
-            try {
-                const brailleData = JSON.parse(brailleDataStr);
-
-                // Renderizar letras
-                const container = document.getElementById(
-                    "brailleContainer",
-                ) as HTMLElement;
-                if (container) {
-                    let cad = "";
-                    let stringTxt = "";
-                    console.log(brailleData["array"]);
-                    brailleData["array"].forEach((letter: string) => {
-                        stringTxt += createLetter(letter);
-                    });
-                    container.innerHTML = stringTxt;
-                }
-            } catch (error) {
-                console.error("Error al procesar datos:", error);
-            }
-        });
-
-        import brailleMap from "../utils/brailleMap";
-
-        function createLetter(letter: string) {
-            const letterSelected = letter;
-            const letterArray = brailleMap[letterSelected] || [
-                0, 0, 0, 0, 0, 0,
-            ];
-
-            let mayus = false;
-            if (letterSelected === letterSelected.toUpperCase()) {
-                mayus = true;
-            }
-
-            const string = `
-                <section class="flex flex-col items-center">
-                    <strong class="text-[16pt] bg-[#2DD3E3] px-6 rounded-t-[3px] pb-0.5 text-center w-1/2">
-                        ${letter.toUpperCase() + (mayus ? " - Mayúscula" : "")}
-                    </strong>
-                    <div
-                        class="bg-[#157589] rounded-[6px] 
-                        grid grid-cols-2 grid-rows-3 gap-x-[24px] gap-y-[12px]
-                        p-3
-                            
-                        "
-                    >
-                        ${letterArray
-                            .map((dot: number) =>
-                                dot === 1
-                                    ? `
-                                        <div class="bg-[#0B3441] rounded-[25px] h-[50px] w-[50px]"></div>
-                                    `
-                                    : `
-                                        <div class="bg-[#2DD3E3] rounded-[25px] h-[50px] w-[50px]"></div>
-                                    `,
-                            )
-                            .join("")}
-                    </div>
-                </section>
-            `;
-            return string;
-        }
-    </script>
-    
-      
+    </body>
 </html>

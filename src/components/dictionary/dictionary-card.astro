@@ -1,14 +1,14 @@
 ---
 interface Props {
     original_word: string /* Por lo general, viene en español */;
-    second_word: string /* Por lo general, viene en inglés */;
-    third_word: string /* Por lo general, viene en aleman */;
+    second_word?: string /* Por lo general, viene en inglés */;
+    third_word?: string /* Por lo general, viene en aleman */;
 
-    original_word_meaning: string /* Por lo general, viene en español */;
-    second_word_meaning: string /* Por lo general, viene en inglés */;
-    third_word_meaning: string /* Por lo general, viene en aleman */;
+    original_word_meaning?: string /* Por lo general, viene en español */;
+    second_word_meaning?: string /* Por lo general, viene en inglés */;
+    third_word_meaning?: string /* Por lo general, viene en aleman */;
 
-    video_url: string;
+    video_url?: string;
 }
 
 const {

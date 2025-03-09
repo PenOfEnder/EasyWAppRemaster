@@ -84,14 +84,10 @@ const palabraParseada = {
                     originalWord: wordSaved,
                     array: tmp_array,
                 };
-                localStorage.setItem(
-                    "objectWordSaved",
-                    JSON.stringify(objectSave),
-                );
                 
 
                 setTimeout(() => {
-                        window.location.href = `/braille?word=${encodeURIComponent(wordSaved)}`;
+                        window.location.href = `/braille/traductor?word=${encodeURIComponent(wordSaved)}`;
                     }, 100); // Ajusta el tiempo si es necesario
             } catch (error) {
                 document.getElementById("loaderDiv")!.style.display = "none";
