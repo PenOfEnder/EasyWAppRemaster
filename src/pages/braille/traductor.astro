@@ -2,7 +2,7 @@
 import { ClientRouter, fade, slide } from "astro:transitions";
 import "../../style/base.css";
 
-import BrailleSearchBar from "../../components/braille/braille-search-bar.astro";
+import NewBrailleSearchBar from "../../components/braille/new-braille-search-bar.astro";
 import CustomLetter from "../../components/braille/custom-letter.astro";
 import BrailleTimeline from "../../components/braille/time-line.jsx";
 
@@ -54,7 +54,7 @@ const letterArray = Array.from(word);
                 </a>
 
                 <div class="flex justify-center w-full h-full">
-                    <BrailleSearchBar
+                    <NewBrailleSearchBar
                         color="#edfefe"
                         placeholder="Traducir a braille"
                         client:load
