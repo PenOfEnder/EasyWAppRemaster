@@ -103,7 +103,7 @@ const BrailleTimeline = ({ letters = "hola", currentIndex = 0, onLetterChange })
           aria-label="Ir a letra anterior"
         >
           <PlayIcon
-            size="25%"
+            size="15%"
             color="#0B3441"
             className="ml-2 group-hover:stroke-[#EDFEFE] transform -scale-x-100"
           />
@@ -122,7 +122,7 @@ const BrailleTimeline = ({ letters = "hola", currentIndex = 0, onLetterChange })
             }
           }}
         >
-          <span className="text-[#1a4f5f] font-medium group-hover:text-[#0b3441] transition-colors">
+          <span className="text-[#1a4f5f] text-xl group-hover:text-[#0b3441] transition-colors">
             {activeIndex + 1} de {letters.length}
             {activeIndex === letters.length - 1 ? ' (Reiniciar)' : ' (Repetir)'}
           </span>
@@ -137,7 +137,7 @@ const BrailleTimeline = ({ letters = "hola", currentIndex = 0, onLetterChange })
           aria-label="Ir a letra siguiente"
         >
           <PlayIcon
-            size="25%"
+            size="15%"
             color="#0B3441"
             className="ml-2 group-hover:stroke-[#EDFEFE]"
           />

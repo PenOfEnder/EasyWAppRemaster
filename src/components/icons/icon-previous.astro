@@ -1,0 +1,30 @@
+---
+// IconPrevious.astro - Componente de ícono para el botón anterior
+interface Props {
+    size?: string;
+    color?: string;
+    className?: string;
+}
+
+const {
+    size = "15%",
+    color = "#0B3441",
+    className = "ml-2 group-hover:stroke-[#EDFEFE] transform -scale-x-100",
+} = Astro.props;
+---
+
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke={color}
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    width={size}
+    height={size}
+    stroke-width="2"
+    class={className}
+>
+    <path d="M3 5v14l8 -7z"></path>
+    <path d="M14 5v14l8 -7z"></path>
+</svg>

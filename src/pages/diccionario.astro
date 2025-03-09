@@ -1,7 +1,7 @@
 ---
 import "../style/base.css";
 
-import { ClientRouter, fade, slide } from 'astro:transitions';
+import { ClientRouter, fade, slide } from "astro:transitions";
 
 import IconLeftArrow from "../style/icon-left-arrow.astro";
 import IconSettings from "../style/icon-settings.astro";
@@ -12,6 +12,9 @@ import DictionarySearchBar from "../components/dictionary/dictionary-search-bar.
 import DictionaryCard from "../components/dictionary/dictionary-card.astro";
 
 import LocalVersion from "../utils/localVersion";
+
+
+
 
 const letters = Array.from({ length: 26 }, (_, i) =>
     String.fromCharCode(65 + i),
@@ -24,12 +27,11 @@ const letters = Array.from({ length: 26 }, (_, i) =>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Diccionario</title>
-        <ClientRouter/>
+        <ClientRouter />
     </head>
-    
 
     <body
-        class="bg-gradient-generic flex flex-col justify-evenly items-center h-screen max-h-[100vh] "
+        class="bg-gradient-generic flex flex-col justify-evenly items-center h-screen max-h-[100vh]"
     >
         <nav class="flex justify-between items-center py-3 w-5/6">
             <a
@@ -55,8 +57,10 @@ const letters = Array.from({ length: 26 }, (_, i) =>
                 <IconSettings size={"80px"} color="#083441" />
             </div>
         </nav>
-        <main class="bg-[#EDFEFE80] h-5/7 w-5/6 rounded-[12.5px] ">
-            <section class="grid grid-cols-3 grid-rows-1 gap-5 p-6 pt-10 overflow-y-auto max-h-[96%]">
+        <main class="bg-[#EDFEFE80] h-5/7 w-5/6 rounded-[12.5px]">
+            <section
+                class="grid grid-cols-3 grid-rows-1 gap-5 p-6 pt-10 overflow-y-auto max-h-[96%]"
+            >
                 <!-- Priueba del nuevo componente, sera temporal -->
 
                 <aside
@@ -76,16 +80,34 @@ const letters = Array.from({ length: 26 }, (_, i) =>
                 </aside>
 
                 <DictionaryCard
+                    original_word="Abeja"
+                    second_word="Bee"
+                    third_word="Ant"
+                    original_word_meaning="Un insecto que se alimenta de las hojas de las plantas y las frutas."
+                    second_word_meaning="A bee is an insect that lives in the family Apidae. It is a member of the order Lepidoptera and is closely related to the wasp."
+                    third_word_meaning="A bee is a small insect that lives in the family Apidae. It is a member of the order Lepidoptera and is closely related to the wasp."
+                    video_url=""
+                />
+
+                <DictionaryCard
+                    original_word="Barco"
+                    second_word="Ship"
+                    third_word="Schiff"
+                    original_word_meaning="Embarcación de gran tamaño destinada a navegar por mares y océanos."
+                    second_word_meaning="A large boat for transporting people or goods by sea."
+                    third_word_meaning="Ein großes Wasserfahrzeug zum Transport von Menschen oder Gütern auf See."
+                    video_url=""
+                />
+
+                <DictionaryCard
                     original_word="Casa"
                     second_word="House"
                     third_word="Haus"
-                    original_word_meaning="Lugar donde vives"
-                    second_word_meaning="Place where you live"
-                    third_word_meaning="Ort, wo du lebst"
-                    video_url="https://www.youtube.com/embed/1w8Z0UOXVaY"
+                    original_word_meaning="Edificio para habitar, estructura que proporciona refugio y espacio para vivir."
+                    second_word_meaning="A building for human habitation, especially one that is lived in by a family or small group of people."
+                    third_word_meaning="Ein Gebäude zum Wohnen, besonders eines, das von einer Familie oder einer kleinen Gruppe von Menschen bewohnt wird."
+                    video_url=""
                 />
-
-                
             </section>
         </main>
         <footer class="text-center flex items-center h-full">

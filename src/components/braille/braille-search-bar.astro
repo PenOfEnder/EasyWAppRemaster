@@ -10,10 +10,15 @@ interface Props {
 const { placeholder, color, height } = Astro.props;
 
 const c_classes = "bg-[" + color + "] w-full rounded-[25px] px-4";
+
+const palabraParseada = {
+    array: ["P", "a", "r", "s", "e", "a", "d", "A"],
+    palabra: "ParseadA",
+};
 ---
 
 <section class={c_classes}>
-    <form action="" class="flex justify-between font-xl h-full">
+    <form action="" class="flex justify-between font-xl h-full" id="searchForm">
         <input
             id="search-bar-input"
             type="text"
@@ -29,7 +34,6 @@ const c_classes = "bg-[" + color + "] w-full rounded-[25px] px-4";
             <IconX size="40px" color="#0B3441" />
         </button>
         <button type="submit" class="h-auto flex justify-center items-center">
-            
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="auto"
@@ -38,8 +42,7 @@ const c_classes = "bg-[" + color + "] w-full rounded-[25px] px-4";
                 ><path fill="#0B3441" d="m2 21l21-9L2 3v7l15 2l-15 2z"
                 ></path></svg
             >
-        
-    </button>
+        </button>
     </form>
 </section>
 
@@ -58,4 +61,42 @@ const c_classes = "bg-[" + color + "] w-full rounded-[25px] px-4";
             }
         });
     });
+    document
+        .querySelector("#searchForm")
+        ?.addEventListener("submit", (e: Event) => submitForm(e));
+
+    async function submitForm(e: Event) {
+        e.preventDefault();
+        console.log("hola");
+        const inputBuscar = document.querySelector(
+            "#search-bar-input",
+        ) as HTMLInputElement | null;
+        if (inputBuscar) {
+            try {
+                document.getElementById("loaderDiv")!.style.display = "flex";
+                console.log("Si ves esto, andamos traduciendo");
+                const wordSaved = inputBuscar.value;
+                let tmp_array = [];
+                for (let i = 0; i < wordSaved.length; i++) {
+                    tmp_array.push(wordSaved[i]);
+                }
+                const objectSave = {
+                    originalWord: wordSaved,
+                    array: tmp_array,
+                };
+                localStorage.setItem(
+                    "objectWordSaved",
+                    JSON.stringify(objectSave),
+                );
+                
+
+                setTimeout(() => {
+                        window.location.href = `/braille?word=${encodeURIComponent(wordSaved)}`;
+                    }, 100); // Ajusta el tiempo si es necesario
+            } catch (error) {
+                document.getElementById("loaderDiv")!.style.display = "none";
+                console.error("Error:", error);
+            }
+        }
+    }
 </script>

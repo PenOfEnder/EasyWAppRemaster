@@ -5,13 +5,23 @@ import "../style/base.css";
 import BrailleSearchBar from "../components/braille/braille-search-bar.astro";
 import CustomLetter from "../components/braille/custom-letter.astro";
 import BrailleTimeline from "../components/braille/time-line.jsx";
-import BrailleNavigationControls from "../components/braille/controlButtons-time-line.jsx";
 
 import LogoCaed from "../components/logos/logo-caed.astro";
 import LogoCbtis from "../components/logos/logo-cbtis.astro";
 import IconLeftArrow from "../style/icon-left-arrow.astro";
 
 import LocalVersion from "../utils/localVersion";
+import Loader from "../components/loaders/loading-2.astro";
+
+const handleLetterChange = (index: number) => {
+    console.log(`Letra cambiada a índice: ${index}`);
+    // Aquí tu lógica adicional
+};
+export const prerender = false; // Hace que la página se renderice en el servidor dinámicamente
+
+const url = new URL(Astro.url);
+const word = url.searchParams.get("word") || "xd"; // "xd" es el valor por defecto si no hay palabra
+console.log("Palabra obtenida:", word);
 ---
 
 <!doctype html>
@@ -25,6 +35,7 @@ import LocalVersion from "../utils/localVersion";
     <body
         class="bg-gradient-generic flex flex-col justify-evenly items-center h-screen"
     >
+        <Loader />
         <nav class="flex justify-between items-center py-3 w-5/6 h-1/5">
             <a href="https://cbtis212.online/" class="h-full">
                 <LogoCbtis size="100%" color="#0B3441" />
@@ -57,21 +68,20 @@ import LocalVersion from "../utils/localVersion";
         >
             <section
                 class="row-span-2 flex gap-5 overflow-x-auto w-full pb-2 items-center px-10 scrollbar-hide"
+                id="idTemporal"
             >
-                <div class="flex gap-10 min-w-max">
-                    <CustomLetter letter="b" />
-                    <CustomLetter letter="r" />
-                    <CustomLetter letter="a" />
-                    <CustomLetter letter="i" />
-                    <CustomLetter letter="l" />
-                    <CustomLetter letter="l" />
-                    <CustomLetter letter="e" />
-                    <CustomLetter letter="e" />
+                <div
+                    class="flex items-center gap-10 min-w-max"
+                    id="brailleContainer"
+                >
                 </div>
             </section>
 
-            <section class="w-full flex items-center justify-center">
-                <BrailleTimeline letters="Braille" onLetterChange={}/>
+            <section
+                class="w-full flex items-center justify-center"
+                id="timeline-container"
+            >
+                {word}
             </section>
         </main>
         <footer class="text-center">
@@ -82,5 +92,74 @@ import LocalVersion from "../utils/localVersion";
                 <br /> Designed by DevSpark
             </span>
         </footer>
-    </body>
+    </body><script>
+        document.addEventListener("astro:page-load", () => {
+            const brailleDataStr = localStorage.getItem("objectWordSaved");
+            if (!brailleDataStr) return;
+
+            try {
+                const brailleData = JSON.parse(brailleDataStr);
+
+                // Renderizar letras
+                const container = document.getElementById(
+                    "brailleContainer",
+                ) as HTMLElement;
+                if (container) {
+                    let cad = "";
+                    let stringTxt = "";
+                    console.log(brailleData["array"]);
+                    brailleData["array"].forEach((letter: string) => {
+                        stringTxt += createLetter(letter);
+                    });
+                    container.innerHTML = stringTxt;
+                }
+            } catch (error) {
+                console.error("Error al procesar datos:", error);
+            }
+        });
+
+        import brailleMap from "../utils/brailleMap";
+
+        function createLetter(letter: string) {
+            const letterSelected = letter;
+            const letterArray = brailleMap[letterSelected] || [
+                0, 0, 0, 0, 0, 0,
+            ];
+
+            let mayus = false;
+            if (letterSelected === letterSelected.toUpperCase()) {
+                mayus = true;
+            }
+
+            const string = `
+                <section class="flex flex-col items-center">
+                    <strong class="text-[16pt] bg-[#2DD3E3] px-6 rounded-t-[3px] pb-0.5 text-center w-1/2">
+                        ${letter.toUpperCase() + (mayus ? " - Mayúscula" : "")}
+                    </strong>
+                    <div
+                        class="bg-[#157589] rounded-[6px] 
+                        grid grid-cols-2 grid-rows-3 gap-x-[24px] gap-y-[12px]
+                        p-3
+                            
+                        "
+                    >
+                        ${letterArray
+                            .map((dot: number) =>
+                                dot === 1
+                                    ? `
+                                        <div class="bg-[#0B3441] rounded-[25px] h-[50px] w-[50px]"></div>
+                                    `
+                                    : `
+                                        <div class="bg-[#2DD3E3] rounded-[25px] h-[50px] w-[50px]"></div>
+                                    `,
+                            )
+                            .join("")}
+                    </div>
+                </section>
+            `;
+            return string;
+        }
+    </script>
+    
+      
 </html>

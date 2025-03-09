@@ -17,7 +17,7 @@ const classes = "sm:w-3/4 lg:w-1/2 flex p-2 rounded-[12.5px]";
 <div class={classes} style={`background-color: ${color}cc;`}>
     <form
         class={`flex items-center justify-between w-full ${paginaPrincipal}`}
-        id="buscar"
+        id="searchForm"
     >
         <input
             type="text"
@@ -44,7 +44,7 @@ const classes = "sm:w-3/4 lg:w-1/2 flex p-2 rounded-[12.5px]";
 
 <script>
     document
-        .querySelector("#buscar")
+        .querySelector("#searchForm")
         ?.addEventListener("submit", (e: Event) => submitForm(e));
 
     async function submitForm(e: Event) {
@@ -58,9 +58,9 @@ const classes = "sm:w-3/4 lg:w-1/2 flex p-2 rounded-[12.5px]";
             const texto = inputBuscar.value;
 
             try {
-                document.getElementById("loaderDiv").style.display = "flex";
+                document.getElementById("loaderDiv")!.style.display = "flex";
                 const respuesta = await fetch(
-                    "http://localhost:8080/traducirPalabraGroq",{
+                    "https://palabra-clara.onrender.com/traducirPalabraGroq",{
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -69,6 +69,7 @@ const classes = "sm:w-3/4 lg:w-1/2 flex p-2 rounded-[12.5px]";
                     }
                 );
                 if (!respuesta.ok) {
+                    console.log("Error en la respuesta del servidor")
                     throw new Error("Error en la respuesta del servidor");
                 }
                 let json = await respuesta.json();
@@ -81,7 +82,7 @@ const classes = "sm:w-3/4 lg:w-1/2 flex p-2 rounded-[12.5px]";
                     window.location.href = "/translate-page";
                 }
             } catch (error) {
-                document.getElementById("loaderDiv").style.display = "none";
+                document.getElementById("loaderDiv")!.style.display = "none";
                 console.error("Error:", error);
             }
         }

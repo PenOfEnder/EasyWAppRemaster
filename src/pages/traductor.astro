@@ -136,22 +136,22 @@ import TranslateCard from "../components/translate/translate-card.astro";
                         const englishContent = typeof traduccion.en === "string"
                             ? traduccion.en
                             : `<p class="traduccion">${traduccion.en.word || ""}</p><p class="descripcion">${traduccion.en.desc || ""}</p>`;
-                        document.getElementById("englishParagraph").innerHTML = englishContent;
+                        document.getElementById("englishParagraph")!.innerHTML = englishContent;
                     }
 
                     if (traduccion.fr) {
                         const frenchContent = typeof traduccion.fr === "string"
                             ? traduccion.fr
                             : `<p class="traduccion">${traduccion.fr.word || ""}</p><p class="descripcion">${traduccion.fr.desc || ""}</p>`;
-                        document.getElementById("franchiseParagraph").innerHTML = frenchContent;
+                        document.getElementById("franchiseParagraph")!.innerHTML = frenchContent;
                     }
 
                     if (traduccion.de) {
                         const aleman = traduccion.de;
                         if (typeof aleman === "string") {
-                            document.getElementById("germanParagraph").innerHTML = aleman;
+                            document.getElementById("germanParagraph")!.innerHTML = aleman;
                         } else {
-                            document.getElementById("germanParagraph").innerHTML = `
+                            document.getElementById("germanParagraph")!.innerHTML = `
                                 <p class="traduccion">${aleman.trans || ""}</p><br>
                                 <p class="articulo">Articulo: ${aleman.art || ""}</p><br>
                                 ${aleman.desc ? `<p class="descripcion">${aleman.desc}</p>` : ""}`;
@@ -163,7 +163,7 @@ import TranslateCard from "../components/translate/translate-card.astro";
             } catch (error) {
                 console.error("Error en actualizarResultado:", error);
             } finally {
-                document.getElementById("loaderDiv").style.display = "none";                
+                document.getElementById("loaderDiv")!.style.display = "none";                
             }
         };
 
