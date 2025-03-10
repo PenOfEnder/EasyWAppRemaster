@@ -23,60 +23,102 @@ import TranslateCard from "../components/translate/translate-card.astro";
         <ClientRouter />
     </head>
 
-    <body class="bg-gradient-generic flex flex-col justify-evenly items-center h-screen pt-6">
+    <body
+        class="bg-gradient-generic flex flex-col justify-evenly items-center lg:h-screen pt-6"
+    >
         <Loader />
-        <nav class="flex justify-between items-center py-3 w-5/6 h-1/5">
-            <a href="https://cbtis212.online/" class="h-full">
+        <nav class="flex justify-around lg:justify-between items-center py-3 w-5/6 h-1/5">
+            <a href="https://cbtis212.online/" class="h-full hidden lg:block">
                 <LogoCbtis size="100%" color="#0B3441" />
             </a>
-            <div class="flex justify-between w-3/5 gap-x-10 h-full">
-                <a href="/" class="flex justify-center items-center aspect-square bg-[#edfefe] p-[10px] rounded-[25px]" aria-label="Regresar al inicio" title="Volver al inicio">
+            <div class="flex justify-between gap-x-2 h-full">
+                <a
+                    href="/"
+                    class="flex justify-center items-center aspect-square bg-[#edfefe] p-[10px] rounded-[25px] h-[100px] lg:h-auto"
+                    aria-label="Regresar al inicio"
+                    title="Volver al inicio"
+                >
                     <span class="ml-[25%]">
                         <IconLeftArrow size={"100%"} color="#083441" />
                     </span>
                 </a>
-                <div class="flex justify-center w-full h-full">
-                    <TranslateSearchBar color="#edfefe" placeholder="Palabra a traducir" />
+                <div class="flex justify-center w-full h-[100px]  lg:h-auto">
+                    <TranslateSearchBar
+                        color="#edfefe"
+                        placeholder="Palabra a traducir"
+                    />
                 </div>
             </div>
-            <a href="https://caed.sep.gob.mx/" class="h-full">
+            <a href="https://caed.sep.gob.mx/" class="h-full hidden lg:block">
                 <LogoCaed size="100%" color="#0B3441" />
             </a>
         </nav>
-        <main class="bg-[#EDFEFE80] h-5/6 w-5/6 rounded-[12.5px] flex flex-col justify-center items-center ">
-            <section class="flex w-full">
-                <TranslateCard title="Inglés - English" idParrafo="englishParagraph" />
-                <TranslateCard title="Francés - Français" idParrafo="franchiseParagraph" />
-                <TranslateCard title="Alemán - Deutsch" idParrafo="germanParagraph" />
+        <main
+            class="bg-[#EDFEFE80] h-5/6 w-5/6 rounded-[12.5px] flex flex-col justify-center items-center"
+        >
+            <section class="flex flex-col lg:flex-row w-full">
+                <TranslateCard
+                    title="Inglés - English"
+                    idParrafo="englishParagraph"
+                />
+                <TranslateCard
+                    title="Francés - Français"
+                    idParrafo="franchiseParagraph"
+                />
+                <TranslateCard
+                    title="Alemán - Deutsch"
+                    idParrafo="germanParagraph"
+                />
             </section>
-            <section id="video-section" class="flex flex-col items-center h-auto mb-5">
+            <section
+                id="video-section"
+                class="flex flex-col items-center h-auto mb-5"
+            >
                 <div class="p-2 bg-[#008DA5] rounded-2xl c-drop-shadow-25px">
-                    <div class="relative w-full bg-slate-300 rounded-2xl overflow-hidden max-w-[480px] h-auto">
-                        <video controls class="w-full h-3/4 object-cover object-center" id="video-player">
+                    <div
+                        class="relative w-full bg-slate-300 rounded-2xl overflow-hidden max-w-[480px] h-auto"
+                    >
+                        <video
+                            controls
+                            class="w-full h-3/4 object-cover object-center"
+                            id="video-player"
+                        >
                             <source id="video-source" src="" type="video/mp4" />
                             Tu navegador no soporta el elemento de video.
                         </video>
                     </div>
-                    <p id="video-text" class="text-center text-[#EDFEFE] text-lg md:text-2xl font-bold p-1 drop-shadow-2xl hidden">
+                    <p
+                        id="video-text"
+                        class="text-center text-[#EDFEFE] text-lg md:text-2xl font-bold p-1 drop-shadow-2xl hidden"
+                    >
                         Video no disponible
                     </p>
                 </div>
-                <h3 class="bg-[#1A5F70] text-[#EDFEFE] w-2/3 md:w-2/4 text-center rounded-md text-lg md:text-2xl font-bold p-1 drop-shadow-2xl -mt-2">
+                <h3
+                    class="bg-[#1A5F70] text-[#EDFEFE] w-2/3 md:w-2/4 text-center rounded-md text-lg md:text-2xl font-bold p-1 drop-shadow-2xl -mt-2"
+                >
                     Lengua de señas
                 </h3>
             </section>
         </main>
         <footer class="text-center">
-            <span class="text-center text-lg text-[#FFFFFF] font-[600] c-placeholder-text">
+            <span
+                class="text-center text-lg text-[#FFFFFF] font-[600] c-placeholder-text"
+            >
                 Versión {LocalVersion}
                 <br /> Designed by DevSpark
             </span>
         </footer>
-    </body>
-    <script>
-        const videoPlayer = document.getElementById("video-player") as HTMLVideoElement;
-        const videoSource = document.getElementById("video-source") as HTMLSourceElement;
-        const videoText = document.getElementById("video-text") as HTMLParagraphElement;
+    </body><script>
+        const videoPlayer = document.getElementById(
+            "video-player",
+        ) as HTMLVideoElement;
+        const videoSource = document.getElementById(
+            "video-source",
+        ) as HTMLSourceElement;
+        const videoText = document.getElementById(
+            "video-text",
+        ) as HTMLParagraphElement;
 
         const actualizarResultado = async () => {
             try {
@@ -86,7 +128,9 @@ import TranslateCard from "../components/translate/translate-card.astro";
                 let datosJson = JSON.parse(datos);
 
                 if (!datosJson.respuesta) {
-                    console.error("Estructura de datos no válida: falta 'respuesta'");
+                    console.error(
+                        "Estructura de datos no válida: falta 'respuesta'",
+                    );
                     return;
                 }
 
@@ -96,15 +140,19 @@ import TranslateCard from "../components/translate/translate-card.astro";
                 if (videoExiste === true || videoExiste === "true") {
                     try {
                         if (!datosJson.Palabra) {
-                            throw new Error("No se encontró la palabra para buscar el video");
+                            throw new Error(
+                                "No se encontró la palabra para buscar el video",
+                            );
                         }
 
                         const respuesta = await fetch(
-                            `https://palabra-clara.onrender.com/descargarVideo/${datosJson.Palabra}`
+                            `https://palabra-clara.onrender.com/descargarVideo/${datosJson.Palabra}`,
                         );
 
                         if (!respuesta.ok) {
-                            throw new Error("Error en la respuesta del servidor");
+                            throw new Error(
+                                "Error en la respuesta del servidor",
+                            );
                         }
 
                         const blob = await respuesta.blob();
@@ -128,30 +176,42 @@ import TranslateCard from "../components/translate/translate-card.astro";
                 try {
                     let traduccionStr = datosJson.respuesta.traduccion;
                     if (typeof traduccionStr === "string") {
-                        traduccionStr = traduccionStr.replace(/```json\n|\n```/g, "");
+                        traduccionStr = traduccionStr.replace(
+                            /```json\n|\n```/g,
+                            "",
+                        );
                     }
                     let traduccion = JSON.parse(traduccionStr);
 
                     if (traduccion.en) {
-                        const englishContent = typeof traduccion.en === "string"
-                            ? traduccion.en
-                            : `<p class="traduccion">${traduccion.en.word || ""}</p><p class="descripcion">${traduccion.en.desc || ""}</p>`;
-                        document.getElementById("englishParagraph")!.innerHTML = englishContent;
+                        const englishContent =
+                            typeof traduccion.en === "string"
+                                ? traduccion.en
+                                : `<p class="traduccion">${traduccion.en.word || ""}</p><p class="descripcion">${traduccion.en.desc || ""}</p>`;
+                        document.getElementById("englishParagraph")!.innerHTML =
+                            englishContent;
                     }
 
                     if (traduccion.fr) {
-                        const frenchContent = typeof traduccion.fr === "string"
-                            ? traduccion.fr
-                            : `<p class="traduccion">${traduccion.fr.word || ""}</p><p class="descripcion">${traduccion.fr.desc || ""}</p>`;
-                        document.getElementById("franchiseParagraph")!.innerHTML = frenchContent;
+                        const frenchContent =
+                            typeof traduccion.fr === "string"
+                                ? traduccion.fr
+                                : `<p class="traduccion">${traduccion.fr.word || ""}</p><p class="descripcion">${traduccion.fr.desc || ""}</p>`;
+                        document.getElementById(
+                            "franchiseParagraph",
+                        )!.innerHTML = frenchContent;
                     }
 
                     if (traduccion.de) {
                         const aleman = traduccion.de;
                         if (typeof aleman === "string") {
-                            document.getElementById("germanParagraph")!.innerHTML = aleman;
+                            document.getElementById(
+                                "germanParagraph",
+                            )!.innerHTML = aleman;
                         } else {
-                            document.getElementById("germanParagraph")!.innerHTML = `
+                            document.getElementById(
+                                "germanParagraph",
+                            )!.innerHTML = `
                                 <p class="traduccion">${aleman.trans || ""}</p><br>
                                 <p class="articulo">Articulo: ${aleman.art || ""}</p><br>
                                 ${aleman.desc ? `<p class="descripcion">${aleman.desc}</p>` : ""}`;
@@ -163,7 +223,7 @@ import TranslateCard from "../components/translate/translate-card.astro";
             } catch (error) {
                 console.error("Error en actualizarResultado:", error);
             } finally {
-                document.getElementById("loaderDiv")!.style.display = "none";                
+                document.getElementById("loaderDiv")!.style.display = "none";
             }
         };
 

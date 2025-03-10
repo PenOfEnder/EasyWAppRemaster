@@ -23,7 +23,9 @@ import LocalVersion from "../../utils/localVersion";
     grid-cols-1
     h-screen
     max-h-screen
-    place-content-around"
+    place-content-around
+    overflow-y-hidden
+    "
     id="body_choose"
 >
     <ClientRouter />
@@ -89,7 +91,7 @@ import LocalVersion from "../../utils/localVersion";
         </section>
 
         <section
-            class=" flex flex-col justify-center items-center cursor-pointer
+            class="col-span-2 lg:col-span-1 flex flex-col justify-center items-center cursor-pointer
             hover:scale-110 transition-transform ease-in-out duration-600 hover:drop-shadow-xl border-2"
         >
             <a
