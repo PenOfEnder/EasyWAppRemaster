@@ -19,9 +19,10 @@ import LocalVersion from "../../utils/localVersion";
 <body
     class="bg-gradient-generic
     grid
-    grid-rows-5
+    grid-rows-6
     grid-cols-1
     h-auto
+    max-h-screen
     place-content-around"
     id="body_choose"
 >
@@ -45,7 +46,7 @@ import LocalVersion from "../../utils/localVersion";
         </div>
     </header>
 
-    <main class="row-span-3 grid grid-cols-2 lg:flex lg:flex-wrap lg:justify-center items-center">
+    <main class="row-span-4 grid grid-cols-2 lg:flex lg:flex-wrap lg:justify-center lg:items-center">
         <section
             class="flex flex-col justify-center items-center cursor-pointer border-2
             hover:scale-110 transition-transform ease-in-out duration-600 hover:drop-shadow-xl"
@@ -89,7 +90,7 @@ import LocalVersion from "../../utils/localVersion";
 
         <section
             class="col-span-2 flex flex-col justify-center items-center cursor-pointer
-            hover:scale-110 transition-transform ease-in-out duration-600 hover:drop-shadow-xl"
+            hover:scale-110 transition-transform ease-in-out duration-600 hover:drop-shadow-xl border-2"
         >
             <a
                 id="braille-btn"
@@ -108,9 +109,9 @@ import LocalVersion from "../../utils/localVersion";
         </section>
     </main>
 
-    <footer class=" flex flex-col-reverse align-center">
+    <footer class="flex items-center align-center border-2">
         <span
-            class="text-center text-lg text-[#FFFFFF] font-[600] c-placeholder-text"
+            class="text-center text-lg text-[#FFFFFF] font-[600] c-placeholder-text w-full"
         >
             Versión {LocalVersion}
             <br /> Designed by DevSpark
