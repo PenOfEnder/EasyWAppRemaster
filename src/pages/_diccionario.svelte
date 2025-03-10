@@ -86,31 +86,20 @@
     <!-- Barra superior con botones de navegación y búsqueda -->
     <div class="flex items-center p-2.5 w-9/10 row-span-1">
         <button
-            class="bg-white rounded-full w-12 h-12 text-2xl flex items-center justify-center cursor-pointer mx-1.5"
+            class="bg-[#edfefe] rounded-full w-12 h-12 text-2xl flex items-center justify-center cursor-pointer mx-1.5"
         >
             <Arrow color="#0B3441" size="20px" />
         </button>
 
-        <div class="flex-1 mx-2.5">
+        <div class="flex-1 mx-2.5 bg-[#edfefe] rounded-xl">
             <input
                 type="text"
                 placeholder="Buscar en el diccionario"
                 bind:value={terminoBusqueda}
                 on:keydown={(e) => e.key === "Enter" && buscar()}
-                class="w-full py-3 px-5 text-base border-none rounded-3xl"
+                class="w-full py-3 px-5 text-base border-none rounded-3xl outline-0 bg-[#]"
             />
         </div>
-
-        <button
-            class="bg-white rounded-full w-12 h-12 text-2xl flex items-center justify-center cursor-pointer mx-1.5"
-            on:click={letraSiguiente}
-        >
-            &#8250;
-        </button>
-
-        <button class="bg-white rounded-full w-12 h-12 text-xl cursor-pointer">
-            &#9881;
-        </button>
     </div>
 
     <!-- Navegador alfabético -->

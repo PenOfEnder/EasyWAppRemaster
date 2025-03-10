@@ -116,9 +116,10 @@ const letterArray = Array.from(word);
                 {
                     (
                         <BrailleTimeline
-                            letters={word}
+                            letters={" "+word}
                             currentIndex={0}
                             onLetterChange={handleLetterChange}
+                            speechOptions={{saveToLocalStorage: false}}
                             client:load
                         />
                     )

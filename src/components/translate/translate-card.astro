@@ -10,9 +10,7 @@ import IconCancelSound from "../icons/icon-cancel-sound.astro";
 const { title, idParrafo } = Astro.props;
 ---
 
-<div
-    class="flex flex-col relative w-[100%] lg:w-1/3 px-7 pt-2 items-center"
->
+<div class="flex flex-col relative w-[100%] lg:w-1/3 px-7 pt-2 items-center">
     <h4
         class="bg-[#1A5F70] text-[#EDFEFE] text-center c-subTitle-text font-medium text-base
         z-30 w-3/4 md:min-w-[160px]
@@ -48,50 +46,55 @@ const { title, idParrafo } = Astro.props;
 </div>
 
 <script>
+    import { generateSpeech } from "../../utils/textToSpeech";
+
     document
         .querySelectorAll(
-            "#s-englishParagraph , #s-franchiseParagraph , #s-germanParagraph",
+            "#s-englishParagraph, #s-franchiseParagraph, #s-germanParagraph",
         )
         .forEach((boton) => {
-            boton.addEventListener("click", (e) => {
+            boton.addEventListener("click", async (e) => {
+                // Añadido 'async' aquí
                 e.preventDefault();
                 let texto = document.getElementById(
                     boton.id.replace("s-", ""),
                 )?.textContent;
+
+                console.log(texto);
+
                 if (boton.id.replace("s-", "") === "germanParagraph") {
                     let traduccion = document
                         .getElementById(boton.id.replace("s-", ""))
                         ?.querySelector(".traduccion")?.textContent;
+
                     let articulo = document
                         .getElementById(boton.id.replace("s-", ""))
                         ?.querySelector(".articulo")?.textContent;
-                    texto = `${articulo} ${traduccion}`;
+
+                    let descripcion = document
+                        .getElementById(boton.id.replace("s-", ""))
+                        ?.querySelector(".descripcion")?.textContent;
+                    texto = `${articulo} ${traduccion} . ${descripcion}`;
                 }
+
                 if (texto?.includes("Articulo:")) {
                     texto = texto.replace("Articulo:", "");
                 }
-                texto = `         ${texto}`;
-                const opciones = {
-                    method: "POST",
-                    Credentials: "include",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: texto,
-                };
 
-                fetch(`http://localhost:8080/convertirTextoAVoz`, opciones)
-                    .then((response) => response.arrayBuffer())
-                    .then((buffer) => {
-                        const blob = new Blob([buffer], { type: "audio/mpeg" });
-                        const url = URL.createObjectURL(blob);
-                        const audio = new Audio();
-                        audio.src = url;
-                        // Bajar la velocidad del audio
-                        audio.playbackRate = 0.75;
-                        audio.play();
-                    })
-                    .catch((err) => console.error(err));
+                try {
+                    const audioUrl = await generateSpeech(texto, {
+                        speed: 0.75,
+                        similarity: 0.75,
+                        voiceId: "zrHiDhphv9ZnVXBqCLjz",
+                    });
+
+                    if (audioUrl) {
+                        const audio = new Audio(audioUrl);
+                        await audio.play();
+                    }
+                } catch (err) {
+                    console.error(err);
+                }
             });
         });
 </script>

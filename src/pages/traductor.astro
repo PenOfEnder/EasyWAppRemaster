@@ -188,7 +188,7 @@ import TranslateCard from "../components/translate/translate-card.astro";
                         const englishContent =
                             typeof traduccion.en === "string"
                                 ? traduccion.en
-                                : `<p class="traduccion">${traduccion.en.word || ""}</p><p class="descripcion">${traduccion.en.desc || ""}</p>`;
+                                : `<p class="traduccion">${traduccion.en.word + ". " || ""}</p><p class="descripcion">${traduccion.en.desc || ""}</p>`;
                         document.getElementById("englishParagraph")!.innerHTML =
                             englishContent;
                     }
@@ -197,7 +197,7 @@ import TranslateCard from "../components/translate/translate-card.astro";
                         const frenchContent =
                             typeof traduccion.fr === "string"
                                 ? traduccion.fr
-                                : `<p class="traduccion">${traduccion.fr.word || ""}</p><p class="descripcion">${traduccion.fr.desc || ""}</p>`;
+                                : `<p class="traduccion">${traduccion.fr.word + "." || ""}</p><p class="descripcion">${traduccion.fr.desc || ""}</p>`;
                         document.getElementById(
                             "franchiseParagraph",
                         )!.innerHTML = frenchContent;
