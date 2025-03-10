@@ -85,11 +85,12 @@
 >
     <!-- Barra superior con botones de navegación y búsqueda -->
     <div class="flex items-center p-2.5 w-9/10 row-span-1">
-        <button
+        <a
             class="bg-[#edfefe] rounded-full w-12 h-12 text-2xl flex items-center justify-center cursor-pointer mx-1.5"
+            href="../"
         >
             <Arrow color="#0B3441" size="20px" />
-        </button>
+        </a>
 
         <div class="flex-1 mx-2.5 bg-[#edfefe] rounded-xl">
             <input
