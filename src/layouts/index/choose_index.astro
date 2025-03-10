@@ -19,9 +19,9 @@ import LocalVersion from "../../utils/localVersion";
 <body
     class="bg-gradient-generic
     grid
-    grid-rows-6
+    grid-rows-5
     grid-cols-1
-    h-auto
+    h-screen
     max-h-screen
     place-content-around"
     id="body_choose"
@@ -46,7 +46,7 @@ import LocalVersion from "../../utils/localVersion";
         </div>
     </header>
 
-    <main class="row-span-4 grid grid-cols-2 lg:flex lg:flex-wrap lg:justify-center lg:items-center">
+    <main class="row-span-3 grid grid-cols-2 lg:grid-cols-3">
         <section
             class="flex flex-col justify-center items-center cursor-pointer border-2
             hover:scale-110 transition-transform ease-in-out duration-600 hover:drop-shadow-xl"
@@ -54,7 +54,7 @@ import LocalVersion from "../../utils/localVersion";
             <a
                 id="dictionary-btn"
                 title="Traductor"
-                class="bg-[#EDFEFE] w-[144px] h-[144px] rounded-[12.5px] mx-15 flex flex-col justify-center items-center
+                class="bg-[#EDFEFE] w-[122px] h-[122px] rounded-[12.5px] flex flex-col justify-center items-center
                 mb-3 drop-shadow-xl
                 cursor-pointer"
                 href="/diccionario"
@@ -75,7 +75,7 @@ import LocalVersion from "../../utils/localVersion";
             <a
                 id="translate-btn"
                 title="Diccionario"
-                class="bg-[#EDFEFE] w-[144px] h-[144px] rounded-[12.5px] mx-15 flex justify-center items-center
+                class="bg-[#EDFEFE] w-[122px] h-[122px] rounded-[12.5px] flex justify-center items-center
                 mb-3 drop-shadow-xl
                 cursor-pointer"
                 href="/traductor"
@@ -89,13 +89,13 @@ import LocalVersion from "../../utils/localVersion";
         </section>
 
         <section
-            class="col-span-2 flex flex-col justify-center items-center cursor-pointer
+            class=" flex flex-col justify-center items-center cursor-pointer
             hover:scale-110 transition-transform ease-in-out duration-600 hover:drop-shadow-xl border-2"
         >
             <a
                 id="braille-btn"
                 title="Braile"
-                class="bg-[#EDFEFE] w-[144px] h-[144px] rounded-[12.5px] mx-15 flex justify-center items-center
+                class="bg-[#EDFEFE] w-[122px] h-[122px] rounded-[12.5px] flex justify-center items-center
                 mb-3 drop-shadow-xl
                 cursor-pointer"
                 href="/braille"
