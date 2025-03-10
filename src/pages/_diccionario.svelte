@@ -1,6 +1,7 @@
 <script>
     import { onMount } from "svelte";
     import Arrow from "../components/icons/svelte/arrow.svelte";
+    import LocalVersion from "../utils/localVersion.js";
 
     // Estado para la aplicación
     let palabraSeleccionada = null;
@@ -12,7 +13,6 @@
     // Datos de ejemplo (reemplazar con tus datos reales)
     import diccionario from "../utils/miniDiccionario.js";
 
-    console.log(diccionario);
     // Lista de todas las letras del alfabeto
     const alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
@@ -80,31 +80,44 @@
     }
 </script>
 
-<div class="diccionario-container">
+<div
+    class="grid grid-cols-1 place-items-center font-sans max-w-full h-screen bg-gradient-to-t from-[#1296ad] to-[#d2fafb] bg-fixed"
+>
     <!-- Barra superior con botones de navegación y búsqueda -->
-    <div class="navbar">
-        <button class="nav-button"> <Arrow color = "#0B3441" size = "20px" /> </button>
+    <div class="flex items-center p-2.5 w-9/10 row-span-1">
+        <button
+            class="bg-white rounded-full w-12 h-12 text-2xl flex items-center justify-center cursor-pointer mx-1.5"
+        >
+            <Arrow color="#0B3441" size="20px" />
+        </button>
 
-        <div class="search-bar">
+        <div class="flex-1 mx-2.5">
             <input
                 type="text"
                 placeholder="Buscar en el diccionario"
                 bind:value={terminoBusqueda}
                 on:keydown={(e) => e.key === "Enter" && buscar()}
+                class="w-full py-3 px-5 text-base border-none rounded-3xl"
             />
         </div>
 
-        <button class="nav-button" on:click={letraSiguiente}> &#8250; </button>
+        <button
+            class="bg-white rounded-full w-12 h-12 text-2xl flex items-center justify-center cursor-pointer mx-1.5"
+            on:click={letraSiguiente}
+        >
+            &#8250;
+        </button>
 
-        <button class="settings-button"> &#9881; </button>
+        <button class="bg-white rounded-full w-12 h-12 text-xl cursor-pointer">
+            &#9881;
+        </button>
     </div>
 
     <!-- Navegador alfabético -->
-    <div class="alphabet-nav">
+    <div class="flex justify-around py-2.5 px-1.5 flex-wrap w-9/10 row-span-1">
         {#each alfabeto as letra}
             <button
-                class="letra-button"
-                class:active={letra === letraActual}
+                class={` bg-transparent border-none text-lg cursor-pointer py-1.5 px-2.5 m-0.5 text-[#00736A] ${letra === letraActual ? "bg-[#2b6e7d] text-[#0B3441] font-[1000]" : ""}`}
                 on:click={() => cambiarLetra(letra)}
             >
                 {letra}
@@ -113,269 +126,155 @@
     </div>
 
     <!-- Contenido principal -->
-    <div class="content-area">
+    <main
+        class="bg-[#EDFEFE80] flex-1 rounded-t-lg p-5 overflow-y-scroll w-9/10 row-span-4"
+    >
         {#if mostrarBusqueda}
             <!-- Resultados de búsqueda -->
-            <div class="search-results">
-                <h2>Resultados para "{terminoBusqueda}"</h2>
+            <div>
+                <h2 class="mb-5">Resultados para "{terminoBusqueda}"</h2>
 
                 {#if getResultadosBusqueda().length > 0}
-                    <div class="palabras-grid">
+                    <div
+                        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
+                    >
                         {#each getResultadosBusqueda() as resultado}
-                            <div 
-                                class="palabra-card"
+                            <button
+                                class="bg-white rounded-lg shadow-md cursor-pointer overflow-hidden transition-all duration-200 hover:translate-y-[-3px] hover:shadow-lg"
                                 on:click={() => {
                                     seleccionarPalabra(resultado);
                                     mostrarBusqueda = false;
                                 }}
                             >
-                                <div class="palabra-card-header">
-                                    {resultado.palabra}
+                                <div
+                                    class="absolute top-0 left-1/2 -translate-x-1/2 bg-[#2b6e7d] text-[#EDFEFE] py-2.5 px-4 text-lg font-bold text-center rounded-lg"
+                                >
+                                    {palabra.palabra}
                                 </div>
-                                <div class="palabra-card-content">
+                                <div class="p-4">
                                     {#if resultado.definiciones.español}
-                                        <div class="definicion">
-                                            <p><strong>Español:</strong></p>
-                                            <p>a. {resultado.definiciones.español}</p>
+                                        <div class="mb-4">
+                                            <p class="my-1.5">
+                                                <strong>Español:</strong>
+                                            </p>
+                                            <p
+                                                class="my-1.5 text-sm leading-relaxed"
+                                            >
+                                                a. {resultado.definiciones
+                                                    .español}
+                                            </p>
                                         </div>
                                     {/if}
-                                    
+
                                     {#if resultado.definiciones.inglés}
-                                        <div class="definicion">
-                                            <p><strong>Word (English):</strong></p>
-                                            <p>a. {resultado.definiciones.inglés}</p>
+                                        <div class="mb-4">
+                                            <p class="my-1.5">
+                                                <strong>Word (English):</strong>
+                                            </p>
+                                            <p
+                                                class="my-1.5 text-sm leading-relaxed"
+                                            >
+                                                a. {resultado.definiciones
+                                                    .inglés}
+                                            </p>
                                         </div>
                                     {/if}
-                                    
+
                                     {#if resultado.definiciones.lsm}
-                                        <div class="lsm-button">
-                                            <span>Lengua de señas mexicana</span>
-                                            <span class="dropdown-icon">&#9662;</span>
+                                        <div
+                                            class="bg-gray-100 p-2.5 rounded text-center mt-2.5 text-sm text-[#2b6e7d] font-bold flex justify-between items-center cursor-pointer"
+                                        >
+                                            <span>Lengua de señas mexicana</span
+                                            >
+                                            <span class="text-xs">&#9662;</span>
                                         </div>
                                     {/if}
                                 </div>
-                            </div>
+                            </button>
                         {/each}
                     </div>
                 {:else}
-                    <p>No se encontraron resultados.</p>
+                    <p class="text-center py-8 text-gray-600">
+                        No se encontraron resultados.
+                    </p>
                 {/if}
 
-                <button on:click={() => (mostrarBusqueda = false)} class="back-button">
+                <button
+                    on:click={() => (mostrarBusqueda = false)}
+                    class="mt-5 bg-[#2b6e7d] text-[#EDFEFE] border-none py-2.5 px-4 rounded cursor-pointer font-bold"
+                >
                     Volver al diccionario
                 </button>
             </div>
         {:else}
             <!-- Lista de palabras para la letra actual como tarjetas -->
             {#if diccionario[letraActual] && diccionario[letraActual].length > 0}
-                <div class="palabras-grid">
+                <div
+                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
+                >
                     {#each diccionario[letraActual].slice(0, palabrasMostradas) as palabra}
-                        <div class="palabra-card" on:click={() => seleccionarPalabra(palabra)}>
-                            <div class="palabra-card-header">
+                        <button
+                            class="relative rounded-lg shadow-md cursor-pointer overflow-hidden transition-all duration-200 hover:translate-y-[-3px] hover:shadow-lg pt-5 mb-5"
+                            on:click={() => seleccionarPalabra(palabra)}
+                        >
+                            <div
+                                class="absolute top-0 left-1/2 -translate-x-1/2 bg-[#2b6e7d] text-[#EDFEFE] py-2.5 px-4 text-lg font-bold text-center rounded-lg"
+                            >
                                 {palabra.palabra}
                             </div>
-                            <div class="palabra-card-content">
+                            <div class="p-4 text-left border-2 rounded-xl">
                                 {#if palabra.definiciones.español}
-                                    <div class="definicion">
-                                        <p><strong>Español:</strong></p>
-                                        <p>a. {palabra.definiciones.español}</p>
+                                    <div class="mb-4">
+                                        <p class="my-1.5">
+                                            <strong>• Español:</strong>
+                                        </p>
+                                        <p
+                                            class="my-1.5 text-sm leading-relaxed"
+                                        >
+                                            a. {palabra.definiciones.español}
+                                        </p>
                                     </div>
                                 {/if}
-                                
+
                                 {#if palabra.definiciones.inglés}
-                                    <div class="definicion">
-                                        <p><strong>Word (English):</strong></p>
-                                        <p>a. {palabra.definiciones.inglés}</p>
+                                    <div class="mb-4">
+                                        <p class="my-1.5">
+                                            <strong>• Word (English):</strong>
+                                        </p>
+                                        <p
+                                            class="my-1.5 text-sm leading-relaxed"
+                                        >
+                                            a. {palabra.definiciones.inglés}
+                                        </p>
                                     </div>
                                 {/if}
-                                
+
                                 {#if palabra.definiciones.lsm}
-                                    <div class="lsm-button">
+                                    <div
+                                        class="bg-gray-100 p-2.5 rounded text-center mt-2.5 text-sm text-[#2b6e7d] font-bold flex justify-between items-center cursor-pointer"
+                                    >
                                         <span>Lengua de señas mexicana</span>
-                                        <span class="dropdown-icon">&#9662;</span>
+                                        <span class="text-xs">&#9662;</span>
                                     </div>
                                 {/if}
                             </div>
-                        </div>
+                        </button>
                     {/each}
                 </div>
             {:else}
-                <div class="no-palabra">
-                    <p>No hay palabras disponibles para la letra {letraActual}</p>
+                <div class="text-center py-8 text-gray-600">
+                    <p>
+                        No hay palabras disponibles para la letra {letraActual}
+                    </p>
                 </div>
             {/if}
         {/if}
-    </div>
+    </main>
+
+    <footer class="text-center row-span-1">
+        <span class="text-center text-lg text-[#EDFEFE] font-semibold">
+            Versión {LocalVersion}
+            <br /> Designed by DevSpark
+        </span>
+    </footer>
 </div>
-
-<style>
-    .diccionario-container {
-        font-family: Arial, sans-serif;
-        max-width: 100%;
-        margin: 0 auto;
-        background-color: #a7dbe3;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .navbar {
-        display: flex;
-        padding: 10px;
-        background-color: #a7dbe3;
-        align-items: center;
-    }
-
-    .nav-button {
-        background-color: white;
-        border: none;
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        font-size: 24px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        margin: 0 5px;
-    }
-
-    .search-bar {
-        flex: 1;
-        margin: 0 10px;
-    }
-
-    .search-bar input {
-        width: 100%;
-        padding: 12px 20px;
-        font-size: 16px;
-        border: none;
-        border-radius: 25px;
-    }
-
-    .settings-button {
-        background-color: white;
-        border: none;
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        font-size: 20px;
-        cursor: pointer;
-    }
-
-    .alphabet-nav {
-        display: flex;
-        justify-content: space-around;
-        background-color: #a7dbe3;
-        padding: 10px 5px;
-        flex-wrap: wrap;
-    }
-
-    .letra-button {
-        background: none;
-        border: none;
-        font-size: 18px;
-        cursor: pointer;
-        padding: 5px 10px;
-        margin: 2px;
-        color: #333;
-    }
-
-    .letra-button.active {
-        background-color: #2b6e7d;
-        color: white;
-        border-radius: 5px;
-    }
-
-    .content-area {
-        background-color: #f0f9fa;
-        flex: 1;
-        border-radius: 10px 10px 0 0;
-        padding: 20px;
-        overflow-y: auto;
-    }
-
-    /* Nuevo estilo para las tarjetas de palabras */
-    .palabras-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 20px;
-    }
-
-    .palabra-card {
-        background-color: white;
-        border-radius: 10px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        cursor: pointer;
-        overflow: hidden;
-        transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .palabra-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    }
-
-    .palabra-card-header {
-        background-color: #2b6e7d;
-        color: white;
-        padding: 10px 15px;
-        font-size: 18px;
-        font-weight: bold;
-        text-align: center;
-    }
-
-    .palabra-card-content {
-        padding: 15px;
-    }
-
-    .definicion {
-        margin-bottom: 15px;
-    }
-
-    .definicion p {
-        margin: 5px 0;
-        font-size: 14px;
-        line-height: 1.4;
-    }
-
-    .lsm-button {
-        background-color: #f5f5f5;
-        padding: 10px;
-        border-radius: 5px;
-        text-align: center;
-        margin-top: 10px;
-        font-size: 14px;
-        color: #2b6e7d;
-        font-weight: bold;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        cursor: pointer;
-    }
-
-    .dropdown-icon {
-        font-size: 12px;
-    }
-
-    .back-button {
-        margin-top: 20px;
-        background-color: #2b6e7d;
-        color: white;
-        border: none;
-        padding: 10px 15px;
-        border-radius: 5px;
-        cursor: pointer;
-        font-weight: bold;
-    }
-
-    .no-palabra {
-        text-align: center;
-        padding: 30px;
-        color: #666;
-    }
-
-    .search-results h2 {
-        margin-bottom: 20px;
-    }
-</style>

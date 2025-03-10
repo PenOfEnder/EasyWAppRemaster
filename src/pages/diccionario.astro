@@ -1,13 +1,18 @@
 ---
 /* Diccionario dinamico */
 import DiccionarioDinamico from "./_diccionario.svelte";
+
+import "../style/base.css"
 ---
 
-<html>
-    <head>
-        <title>Diccionario</title>
-    </head>
-    <body>
-        <DiccionarioDinamico client:load />
-    </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diccionario</title>
+</head>
+<body class="h-full">
+    <DiccionarioDinamico client:load />
+</body>
 </html>
