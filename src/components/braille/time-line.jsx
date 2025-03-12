@@ -54,9 +54,9 @@ const PlayIcon = ({ size = "24", color = "currentColor", className = "", rotate 
   </svg>
 );
 
-const BrailleTimeline = ({ 
-  letters = "hola", 
-  currentIndex = 0, 
+const BrailleTimeline = ({
+  letters = "hola",
+  currentIndex = 0,
   onLetterChange,
   speechOptions = {},
   autoStart = false // Parámetro para controlar si se reproduce automáticamente al iniciar
@@ -71,19 +71,38 @@ const BrailleTimeline = ({
   // Actualiza el componente cuando cambia el índice externamente
   useEffect(() => {
     setActiveIndex(currentIndex);
-    
+
     // Solo reproducir si no es la renderización inicial o si autoStart es true
     if (!initialRenderRef.current || autoStart) {
       // Siempre pronunciar cuando cambia el índice, incluso si la letra es la misma
       speakCurrentLetter(currentIndex);
     }
-    
+
     // Marcar que ya no estamos en la renderización inicial
     if (initialRenderRef.current) {
       initialRenderRef.current = false;
     }
   }, [currentIndex, autoStart]);
 
+  // Add keyboard event listener
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === 'ArrowLeft') {
+        handlePrevious();
+      } else if (event.key === 'ArrowRight') {
+        handleNext();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+  
+
+    // Cleanup listener when component unmounts
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [activeIndex]); // Add activeIndex as dependency to access current state
   // Liberar recursos de audio cuando el componente se desmonte
   useEffect(() => {
     return () => {
@@ -96,16 +115,16 @@ const BrailleTimeline = ({
   // Función para generar el texto descriptivo del patrón Braille
   const generateBrailleDescription = (letter, position) => {
     letter = letter.toUpperCase();
-    
+
     // Si la letra no está en nuestro mapa, retornar un mensaje genérico
     if (!brailleMap[letter]) {
       return `La letra ${letter} en posición ${position + 1} en Braille no está disponible en el mapa actual.`;
     }
-    
+
     // Incluir la posición en el texto para diferenciar letras repetidas
     let text = `La letra ${letter} en Braile es: `;
     let firstPoint = true;
-    
+
     // Recorrer el array en grupos de 3 (por columnas)
     for (let col = 0; col < 2; col++) {
       for (let row = 0; row < 3; row++) {
@@ -120,7 +139,7 @@ const BrailleTimeline = ({
         }
       }
     }
-    
+
     return text;
   };
 
@@ -128,7 +147,7 @@ const BrailleTimeline = ({
   const speakCurrentLetter = async (index) => {
     // Siempre forzar la reproducción incluso si la letra es la misma que la anterior
     // pero está en una posición diferente
-    
+
     if (isSpeakingRef.current) {
       // Si ya está hablando, detener la reproducción actual
       if (audioRef.current) {
@@ -140,17 +159,17 @@ const BrailleTimeline = ({
     const currentLetter = letters.charAt(index);
     // Generar el texto descriptivo para la configuración Braille, incluyendo la posición
     const textToSpeak = generateBrailleDescription(currentLetter, index);
-    
+
     // Actualizar la referencia de la última posición reproducida
     lastPlayedRef.current = index;
-    
+
     try {
       isSpeakingRef.current = true;
       const url = await generateSpeech(textToSpeak, speechOptions);
-      
+
       if (url) {
         setAudioUrl(url);
-        
+
         // Reproducir el audio
         if (audioRef.current) {
           audioRef.current.src = url;
@@ -169,7 +188,7 @@ const BrailleTimeline = ({
     // Siempre reproducir al hacer clic, incluso si es la misma letra en diferente posición
     setActiveIndex(index);
     speakCurrentLetter(index);
-    
+
     if (onLetterChange) {
       onLetterChange(index);
     }
@@ -215,22 +234,20 @@ const BrailleTimeline = ({
             <div key={index} className="flex flex-col items-center">
               <button
                 onClick={() => handlePointClick(index)}
-                className={`w-6 h-6 rounded-full border-2 transition-all duration-300 flex items-center justify-center z-10 ${
-                  index === activeIndex
+                className={`w-6 h-6 rounded-full border-2 transition-all duration-300 flex items-center justify-center z-10 ${index === activeIndex
                     ? 'bg-[#1a4f5f] border-[#1a4f5f] text-white shadow-lg scale-125'
                     : index < activeIndex
                       ? 'bg-[#1a4f5f] border-[#1a4f5f]'
                       : 'bg-[#12b6c8] border-[#12b6c8]'
-                }`}
+                  }`}
                 aria-label={`Ir a letra ${letter} en posición ${index + 1}`}
                 data-position={index}
               >
                 {index < activeIndex ? ' ' : ''}
               </button>
 
-              <span className={`mt-2 text-sm font-medium ${
-                index === activeIndex ? 'text-[#1a4f5f]' : 'text-[#12b6c8]'
-              }`}>
+              <span className={`mt-2 text-sm font-medium ${index === activeIndex ? 'text-[#1a4f5f]' : 'text-[#12b6c8]'
+                }`}>
                 {letter.toUpperCase()}
               </span>
             </div>
