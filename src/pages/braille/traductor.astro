@@ -37,14 +37,18 @@ const letterArray = Array.from(word);
         class="bg-gradient-generic flex flex-col justify-evenly items-center h-screen"
     >
         <Loader />
-        <nav class="flex justify-between items-center py-3 w-5/6 h-1/5">
-            <a href="https://cbtis212.online/" class="h-full">
+        <nav class="flex flex-col md:flex-row justify-between items-center py-3 w-full md:w-5/6 h-auto md:h-1/5">
+            <!-- Logo CBTIS -->
+            <a href="https://cbtis212.online/" class="hidden lg:block md:h-full md:mb-0">
                 <LogoCbtis size="100%" color="#0B3441" />
             </a>
-            <div class="flex justify-beetween w-3/5 gap-x-10 h-full">
+            
+            <!-- Sección central (flecha y búsqueda) -->
+            <div class="flex w-5/6 md:flex-row justify-center  lg:w-3/5 gap-4 md:gap-x-10 h-auto md:h-full">
+                <!-- Botón de regresar -->
                 <a
                     href="/braille"
-                    class="flex justify-center items-center aspect-square bg-[#edfefe] p-[10px] rounded-[25px]"
+                    class="flex justify-center items-center aspect-square bg-[#edfefe] p-[10px] rounded-[25px] w-1/5 md:w-auto"
                     aria-label="Regresar al inicio"
                     title="Volver al inicio"
                 >
@@ -52,10 +56,11 @@ const letterArray = Array.from(word);
                         <IconLeftArrow size={"100%"} color="#083441" />
                     </span>
                 </a>
-
-                <div class="flex justify-center w-full h-full">
+                
+                <!-- Formulario de búsqueda -->
+                <div class="flex justify-center w-4/5 h-full md:h-full">
                     <section
-                        class="w-full rounded-[25px] px-4 bg-[#edfefe]"
+                        class="w-full rounded-[25px] px-2 md:px-4 bg-[#edfefe]"
                         id=""
                     >
                         <form
@@ -66,15 +71,15 @@ const letterArray = Array.from(word);
                             <input
                                 id="search-bar-input"
                                 type="text"
-                                class="h-full w-full text-3xl pl-2 placeholder:text-3xl outline-none"
+                                class="h-full w-full text-lg md:text-3xl pl-2 placeholder:text-lg md:placeholder:text-3xl outline-none"
                                 placeholder={"Traduir a braile"}
                             />
                             <button
                                 id="button-x"
                                 type="reset"
-                                class="h-full p-4 cursor-pointer hidden"
+                                class="h-full p-2 md:p-4 cursor-pointer hidden"
                             >
-                                <IconX size="40px" color="#0B3441" />
+                                <IconX size="24px" color="#0B3441" />
                             </button>
                             <button
                                 type="submit"
@@ -95,7 +100,9 @@ const letterArray = Array.from(word);
                     </section>
                 </div>
             </div>
-            <a href="https://caed.sep.gob.mx/" class="h-full">
+            
+            <!-- Logo CAED -->
+            <a href="https://caed.sep.gob.mx/" class="hidden lg:block md:h-full md:mt-0">
                 <LogoCaed size="100%" color="#0B3441" />
             </a>
         </nav>
@@ -144,7 +151,8 @@ const letterArray = Array.from(word);
                 <br /> Designed by DevSpark
             </span>
         </footer>
-    </body><script>
+    </body>
+    <script>
         addEventListener("DOMContentLoaded", () => {
             const $input = document.querySelector(
                 "#search-bar-input",
@@ -179,7 +187,7 @@ const letterArray = Array.from(word);
                     }
                     setTimeout(() => {
                         window.location.href = `/braille/traductor?word=${encodeURIComponent(wordSaved)}`;
-                    }, 100); // Ajusta el tiempo si es necesario
+                    }, 100);
                 } catch (error) {
                     document.getElementById("loaderDiv")!.style.display =
                         "none";
@@ -187,7 +195,5 @@ const letterArray = Array.from(word);
                 }
             }
         }
-
-        
     </script>
 </html>

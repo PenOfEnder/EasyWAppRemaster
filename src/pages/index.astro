@@ -1,8 +1,6 @@
 ---
-
 import Choose_Index from "../layouts/index/choose_index.astro";
-
-
+import ClientRouter from "astro/components/ClientRouter.astro";
 ---
 
 <!doctype html>
@@ -11,8 +9,8 @@ import Choose_Index from "../layouts/index/choose_index.astro";
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Easy Word App v2.0</title>
-        <Choose_Index/>
+        <ClientRouter />
     </head>
-    
-    
+    <Choose_Index />
+
 </html>

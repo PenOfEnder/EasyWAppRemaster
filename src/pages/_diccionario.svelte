@@ -5,13 +5,13 @@
 
     // Estado para la aplicación
     let palabraSeleccionada = null;
-    let letraActual = "A";
+    let letraActual = "A";0
     let terminoBusqueda = "";
     let mostrarBusqueda = false;
     let palabrasMostradas = 3; // Controla cuántas tarjetas se muestran
 
     // Datos de ejemplo (reemplazar con tus datos reales)
-    import diccionario from "../utils/miniDiccionario.js";
+    import diccionario from "../utils/dicionaryWords.js";
 
     // Lista de todas las letras del alfabeto
     const alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
@@ -81,7 +81,7 @@
 </script>
 
 <div
-    class="grid grid-cols-1 place-items-center font-sans max-w-full h-screen bg-gradient-to-t from-[#1296ad] to-[#d2fafb] bg-fixed"
+    class="grid grid-cols-1 place-items-center font-sans max-w-full h-full bg-gradient-to-t from-[#1296ad] to-[#d2fafb] bg-fixed"
 >
     <!-- Barra superior con botones de navegación y búsqueda -->
     <div class="flex items-center p-2.5 w-9/10 row-span-1">

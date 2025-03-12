@@ -11,6 +11,8 @@ import IconAbc from "../components/icons/icon-abc.astro";
 import IconBrailleDots from "../components/icons/icon-braille-dots.astro";
 
 import LocalVersion from "../utils/localVersion";
+import IconTranslate from "../components/icons/icon-translate.astro";
+import IconBraille from "../components/icons/icon-braille.astro";
 ---
 
 <!doctype html>
@@ -22,42 +24,49 @@ import LocalVersion from "../utils/localVersion";
         <ClientRouter />
     </head>
     <body
-        class="bg-gradient-generic grid grid-rows-3 place-items-center h-screen"
+        class="bg-gradient-generic grid grid-rows-3 place-items-center  h-screen w-full"
     >
-        <nav class="flex justify-around items-center w-5/6 h-1/2">
-            <a href="https://cbtis212.online/" class="h-full">
-                <LogoCbtis size="100%" color="#0B3441" />
-            </a>
-            <div class="flex justify-between items-center gap-x-10 h-full">
-                <h2 class="text-4xl c-title-text text-[#0B3441]">Seccion de braille</h2>
+        <header
+            class="row-span-1 flex flex-wrap md:flex-nowrap items-center justify-around lg:justify-around w-5/6"
+        >
+            <div
+                class="flex justify-center lg:jusitfy-around lg:w-full lg:h-full md:order-1 max-w-[150px]"
+            >
+                <LogoCbtis size="100%" color="#0b3441" />
             </div>
-
-            <a href="https://caed.sep.gob.mx/" class="h-full flex">
-                <LogoCaed size="100%" color="#0B3441" />
-            </a>
-        </nav>
-        <main class="flex justify-evenly">
+            <div class="flex justify-center items-center order-last md:order-2">
+                <h2 class="text-xl md:text-4xl font-bold text-[#0b3441] flex items-center">Seccion de braille</h2>
+            </div>
+            <div
+                class="flex justify-between lg:w-full lg:h-full md:order-3 max-w-[150px]"
+            >
+                <LogoCaed size="100%" color="#0b3441" />
+            </div>
+        </header>
+        <main class="row-span-2 w-5/6 flex flex-wrap lg:flex-nowrap justify-around lg:justify-evenly items-center  ">
             <section
                 class="flex flex-col justify-center items-center cursor-pointer
-            hover:scale-110 transition-transform ease-in-out duration-600 hover:drop-shadow-xl"
+                hover:scale-110 transition-transform ease-in-out duration-600 hover:drop-shadow-xl"
             >
                 <a
                     id="dictionary-btn"
                     title="Traductor"
-                    class="bg-[#EDFEFE] w-[144px] h-[144px] rounded-[12.5px] mx-15 flex flex-col justify-center items-center
-                mb-3 drop-shadow-xl
-                cursor-pointer"
-                    href="../"
+                    class="bg-[#EDFEFE] w-[122px] h-[122px] rounded-[12.5px] flex flex-col justify-center items-center
+                    mb-3 drop-shadow-xl
+                    cursor-pointer"
+                    href="/"
                 >
                     <span class="ml-[25%]">
                         <IconLeftArrow size={"100%"} color="#083441" />
                     </span>
                 </a>
+
                 <label
                     class="c-placeholder-text text-xl text-[#0B3441] cursor-pointer"
-                    for="dictionary-btn">Regresar</label
+                    for="dictionary-btn">Diccionario</label
                 >
             </section>
+
             <section
                 class="flex flex-col justify-center items-center cursor-pointer
             hover:scale-110 transition-transform ease-in-out duration-600 hover:drop-shadow-xl"
@@ -65,39 +74,41 @@ import LocalVersion from "../utils/localVersion";
                 <a
                     id="dictionary-btn"
                     title="Traductor"
-                    class="bg-[#EDFEFE] w-[144px] h-[144px] rounded-[12.5px] mx-15 flex flex-col justify-center items-center
-                mb-3 drop-shadow-xl ml-[25%]
+                    class="bg-[#EDFEFE] w-[122px] h-[122px] rounded-[12.5px] flex flex-col justify-center items-center
+                mb-3 drop-shadow-xl
                 cursor-pointer"
                     href="/braille/abecedario"
                 >
-                    <IconAbc size="75%" />
+                    <IconAbc size="95%" />
                 </a>
                 <label
                     class="c-placeholder-text text-xl text-[#0B3441] cursor-pointer"
                     for="dictionary-btn">Abecedario en braille</label
                 >
             </section>
+
             <section
-                class="flex flex-col justify-center items-center cursor-pointer
-            hover:scale-110 transition-transform ease-in-out duration-600 hover:drop-shadow-xl"
+                class="col-span-2 lg:col-span-1 flex flex-col justify-center items-center cursor-pointer
+                hover:scale-110 transition-transform ease-in-out duration-600 hover:drop-shadow-xl"
             >
                 <a
-                    id="dictionary-btn"
-                    title="Traductor"
-                    class="bg-[#EDFEFE] w-[144px] h-[144px] rounded-[12.5px] mx-15 flex flex-col justify-center items-center
-                mb-3 drop-shadow-xl
-                cursor-pointer"
-                href="/braille/traductor"
+                    id="braille-btn"
+                    title="Braile"
+                    class="bg-[#EDFEFE] w-[122px] h-[122px] rounded-[12.5px] flex justify-center items-center
+                    mb-3 drop-shadow-xl
+                    cursor-pointer"
+                    href="/braille/traductor"
                 >
                     <IconBrailleDots size="75%" />
                 </a>
                 <label
                     class="c-placeholder-text text-xl text-[#0B3441] cursor-pointer"
-                    for="dictionary-btn">Asistente de braille</label
+                    for="braille-btn">Asistente de braille</label
                 >
             </section>
         </main>
-        <footer class="text-center flex items-center">
+        
+        <footer class=" text-center flex items-center w-5/6 justify-center">
             <span
                 class="text-center text-lg text-[#FFFFFF] font-[600] c-placeholder-text"
             >

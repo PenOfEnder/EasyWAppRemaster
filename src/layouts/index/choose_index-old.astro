@@ -17,14 +17,21 @@ import LocalVersion from "../../utils/localVersion";
 ---
 
 <body
-    class="flex min-h-screen items-center justify-center lg:justify-around flex-col bg-gradient-generic gap-y-10"
+    class="bg-gradient-generic
+    flex
+    flex-col
+    
+    
+    overflow-y-hidden
+    "
     id="body_choose"
 >
+
     <header
-        class="flex flex-wrap md:flex-nowrap items-center justify-around lg:justify-around w-5/6"
+        class="h-[25%] flex flex-wrap md:flex-nowrap justify-around lg:justify-around pt-3 px-5 "
     >
         <div
-            class="flex justify-center lg:jusitfy-around lg:w-full lg:h-full md:order-1 max-w-[150px]"
+            class="flex justify-center lg:jusitfy-around lg:w-full lg:h-full md:order-1 max-w-[100px]"
         >
             <LogoCbtis size="100%" color="#0b3441" />
         </div>
@@ -32,13 +39,13 @@ import LocalVersion from "../../utils/localVersion";
             <Bienvenido size="100%" color="#0b3441" />
         </div>
         <div
-            class="flex justify-between lg:w-full lg:h-full md:order-3 max-w-[150px]"
+            class="flex justify-between lg:w-full lg:h-full md:order-3 max-w-[100px]"
         >
             <LogoCaed size="100%" color="#0b3441" />
         </div>
     </header>
 
-    <main class="h-1/2 w-5/6 flex flex-wrap justify-around gap-y-5">
+    <main class="row-span-4 grid grid-cols-2 lg:grid-cols-3 ">
         <section
             class="flex flex-col justify-center items-center cursor-pointer
             hover:scale-110 transition-transform ease-in-out duration-600 hover:drop-shadow-xl"
@@ -82,7 +89,7 @@ import LocalVersion from "../../utils/localVersion";
 
         <section
             class="col-span-2 lg:col-span-1 flex flex-col justify-center items-center cursor-pointer
-            hover:scale-110 transition-transform ease-in-out duration-600 hover:drop-shadow-xl"
+            hover:scale-110 transition-transform ease-in-out duration-600 hover:drop-shadow-xl "
         >
             <a
                 id="braille-btn"
@@ -101,7 +108,7 @@ import LocalVersion from "../../utils/localVersion";
         </section>
     </main>
 
-    <footer class="h-fit w-5/6 flex items-center align-center">
+    <footer class="row-span-1 flex items-center align-center ">
         <span
             class="text-center text-lg text-[#FFFFFF] font-[600] c-placeholder-text w-full"
         >
@@ -110,3 +117,5 @@ import LocalVersion from "../../utils/localVersion";
         </span>
     </footer>
 </body>
+
+<script></script>

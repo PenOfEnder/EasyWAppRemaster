@@ -88,19 +88,17 @@ import { generateSpeech } from "../../utils/textToSpeech";
             if (!letter) return;
 
             try {
-                // Cambiar apariencia del botón para indicar carga
                 button.classList.add("loading");
 
                 let text = `La letra ${letter} en Braille es: `;
                 let firstPoint = true;
 
-                // Recorrer el array en grupos de 3 (por columnas)
                 for (let col = 0; col < 2; col++) {
                     for (let row = 0; row < 3; row++) {
-                        const index = col * 3 + row; // Calcular el índice en el array
+                        const index = col * 3 + row;
                         if (brailleMap[letter][index] === 1) {
                             if (!firstPoint) {
-                                text += ", "; // Añadir separador si no es el primer punto
+                                text += ", ";
                             } else {
                                 firstPoint = false;
                             }
