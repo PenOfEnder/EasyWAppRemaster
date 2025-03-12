@@ -19,9 +19,9 @@ import LocalVersion from "../../utils/localVersion";
 <body
     class="bg-gradient-generic
     grid
-    grid-rows-5
+    grid-rows-7
     grid-cols-1
-    h-min-[100vh]
+    max-h-screen
     place-content-around
     overflow-y-hidden
     "
@@ -30,7 +30,7 @@ import LocalVersion from "../../utils/localVersion";
     <ClientRouter />
 
     <header
-        class="row-start-1 flex flex-wrap md:flex-nowrap justify-around lg:justify-around pt-3 px-5"
+        class="row-span-2 flex flex-wrap md:flex-nowrap justify-around lg:justify-around pt-3 px-5 "
     >
         <div
             class="flex justify-center lg:jusitfy-around lg:w-full lg:h-full md:order-1 max-w-[100px]"
@@ -47,9 +47,9 @@ import LocalVersion from "../../utils/localVersion";
         </div>
     </header>
 
-    <main class="row-span-3 grid grid-cols-2 lg:grid-cols-3">
+    <main class="row-span-4 grid grid-cols-2 lg:grid-cols-3 ">
         <section
-            class="flex flex-col justify-center items-center cursor-pointer 
+            class="flex flex-col justify-center items-center cursor-pointer
             hover:scale-110 transition-transform ease-in-out duration-600 hover:drop-shadow-xl"
         >
             <a
@@ -110,7 +110,7 @@ import LocalVersion from "../../utils/localVersion";
         </section>
     </main>
 
-    <footer class="flex items-center align-center ">
+    <footer class="row-span-1 flex items-center align-center ">
         <span
             class="text-center text-lg text-[#FFFFFF] font-[600] c-placeholder-text w-full"
         >
