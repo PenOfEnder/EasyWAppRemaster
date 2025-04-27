@@ -91,18 +91,16 @@ import { generateSpeech } from "../../utils/textToSpeech";
                 button.classList.add("loading");
 
                 let text = `La letra ${letter} en Braille es: `;
-                let firstPoint = true;
 
-                for (let col = 0; col < 2; col++) {
-                    for (let row = 0; row < 3; row++) {
-                        const index = col * 3 + row;
-                        if (brailleMap[letter][index] === 1) {
-                            if (!firstPoint) {
-                                text += ", ";
-                            } else {
-                                firstPoint = false;
-                            }
-                            text += `Un punto en la columna ${col + 1} y en la fila ${row + 1}`;
+                for (let i = 0; i < brailleMap[letter].length; i++) {
+                    
+                    if(i>2){
+                        if(brailleMap[letter][i] > 0){
+                            text += "Punto "+(i+1)+" ";
+                        }
+                    } else{
+                        if(brailleMap[letter][i] > 0){
+                            text += "Punto "+(i+1)+" "; 
                         }
                     }
                 }

@@ -27,7 +27,7 @@ export async function generateSpeech(text, options = {}) {
     }
 
     // La API key se toma de variables de entorno
-    const API_KEY = "sk_bae088b57b90872e5f7ff9267ba78f4ec77b398c15349dd0";
+    const API_KEY = "sk_95d60012d7da38b847f5c23ad789cc0762f09e47a0e8b1d3";
 
     // ID de voz (Rachel por defecto)
     const VOICE_ID = config.voiceId;

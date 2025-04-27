@@ -123,22 +123,17 @@ const BrailleTimeline = ({
 
     // Incluir la posición en el texto para diferenciar letras repetidas
     let text = `La letra ${letter} en Braile es: `;
-    let firstPoint = true;
-
-    // Recorrer el array en grupos de 3 (por columnas)
-    for (let col = 0; col < 2; col++) {
-      for (let row = 0; row < 3; row++) {
-        const index = col * 3 + row; // Calcular el índice en el array
-        if (brailleMap[letter][index] === 1) {
-          if (!firstPoint) {
-            text += ", "; // Añadir separador si no es el primer punto
-          } else {
-            firstPoint = false;
+    for (let i = 0; i < brailleMap[letter].length; i++) { 
+      if(i>2){
+          if(brailleMap[letter][i] > 0){
+              text += "Punto "+(i+1)+" ";
           }
-          text += `Un punto en la columna ${col + 1} y en la fila ${row + 1}`;
-        }
+      } else{
+          if(brailleMap[letter][i] > 0){
+              text += "Punto "+(i+1)+" "; 
+          }
       }
-    }
+  }
 
     return text;
   };
