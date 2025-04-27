@@ -204,14 +204,17 @@ const BrailleTimeline = ({
 
   // Función para repetir o reiniciar
   const handleRepeatOrReset = () => {
-    if (activeIndex < letters.length - 1) {
-      // Si no está en la última letra, repite la letra actual
-      speakCurrentLetter(activeIndex);
-      onLetterChange && onLetterChange(activeIndex);
-    } else {
-      // Si está en la última letra, reinicia la secuencia
-      handlePointClick(0);
+    if (activeIndex > 0){
+      if (activeIndex < letters.length - 1) {
+        // Si no está en la última letra, repite la letra actual
+        speakCurrentLetter(activeIndex);
+        onLetterChange && onLetterChange(activeIndex);
+      } else {
+        // Si está en la última letra, reinicia la secuencia
+        handlePointClick(0);
+      }
     }
+    
   };
 
   return (
