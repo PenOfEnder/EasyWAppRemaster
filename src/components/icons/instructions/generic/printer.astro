@@ -1,0 +1,35 @@
+---
+interface Props {
+    size: string;
+    color: string;
+    stroke?: string;
+}
+
+const { size, color, stroke = "4" } = Astro.props;
+---
+
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 48 48"
+    ><defs
+        ><mask id="IconifyId197009fd370f88a095"
+            ><g
+                fill="none"
+                stroke="#fff"
+                stroke-linejoin="round"
+                stroke-width={stroke}
+                ><path fill="#555" d="M37 32H11v12h26z"></path><path
+                    stroke-linecap="round"
+                    d="M4 20h40v18h-6.983v-6H10.98v6H4z"
+                    clip-rule="evenodd"></path><path
+                    fill="#555"
+                    d="M38 4H10v16h28z"></path></g
+            ></mask
+        ></defs
+    ><path
+        fill={color}
+        d="M0 0h48v48H0z"
+        mask="url(#IconifyId197009fd370f88a095)"></path></svg
+>

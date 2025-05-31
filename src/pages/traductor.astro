@@ -5,7 +5,7 @@ import { ClientRouter, fade, slide } from "astro:transitions";
 
 import LogoCbtis from "../components/logos/logo-cbtis.astro";
 import LogoCaed from "../components/logos/logo-caed.astro";
-import IconLeftArrow from "../style/icon-left-arrow.astro";
+import IconLeftArrow from "../components/icons/icon-left-arrow.astro";
 
 import LocalVersion from "../utils/localVersion";
 import Loader from "../components/loaders/loading-2.astro";
@@ -27,7 +27,7 @@ import TranslateCard from "../components/translate/translate-card.astro";
         class="bg-gradient-generic flex flex-col justify-evenly items-center lg:h-screen pt-6"
     >
         <nav
-            class="flex justify-around lg:justify-between items-center py-3 w-5/6 h-1/5"
+            class="flex justify-around lg:justify-between items-center py-3 w-5/6 h-1/6"
         >
             <a href="https://cbtis212.online/" class="h-full hidden lg:block">
                 <LogoCbtis size="100%" color="#0B3441" />
@@ -57,7 +57,7 @@ import TranslateCard from "../components/translate/translate-card.astro";
         <main
             class="bg-[#EDFEFE80] w-5/6 rounded-[12.5px] flex flex-col justify-center items-center"
         >
-            <section class="flex flex-col lg:flex-row w-full">
+            <section class="flex flex-col lg:flex-row lg:flex-wrap justify-center w-full ">
                 <TranslateCard
                     title="Inglés - English"
                     idParrafo="englishParagraph"
@@ -70,6 +70,14 @@ import TranslateCard from "../components/translate/translate-card.astro";
                     title="Alemán - Deutsch"
                     idParrafo="germanParagraph"
                 />
+                <TranslateCard
+                    title="Portugués - Português"
+                    idParrafo="portuguesParagraph"
+                />
+                <TranslateCard
+                    title="Nahuatl"
+                    idParrafo="nahuatlParagraph"
+                />
             </section>
             <section
                 id="video-section"
@@ -77,7 +85,7 @@ import TranslateCard from "../components/translate/translate-card.astro";
             >
                 <div class="p-2 bg-[#008DA5] rounded-2xl c-drop-shadow-25px">
                     <div
-                        class="relative w-full bg-slate-300 rounded-2xl overflow-hidden max-w-[720px] h-auto"
+                        class="relative w-full bg-slate-300 rounded-2xl overflow-hidden max-w-[540px] h-auto"
                     >
                         <video
                             controls
@@ -217,6 +225,26 @@ import TranslateCard from "../components/translate/translate-card.astro";
                                 <p class="articulo">Articulo: ${aleman.art || ""}</p><br>
                                 ${aleman.desc ? `<p class="descripcion">${aleman.desc}</p>` : ""}`;
                         }
+                    }
+
+                    if (traduccion.pt) {
+                        const portugalContent =
+                            typeof traduccion.pt === "string"
+                                ? traduccion.pt
+                                : `<p class="traduccion">${traduccion.pt.word + "." || ""}</p><p class="descripcion">${traduccion.pt.desc || ""}</p>`;
+                        document.getElementById(
+                            "portuguesParagraph",
+                        )!.innerHTML = portugalContent;
+                    }
+
+                    if (traduccion.nah) {
+                        const nahuatlContent =
+                            typeof traduccion.nah === "string"
+                                ? traduccion.nah
+                                : `<p class="traduccion">${traduccion.nah.word + "." || ""}</p><p class="descripcion">${traduccion.nah.desc || ""}</p>`;
+                        document.getElementById(
+                            "nahuatlParagraph",
+                        )!.innerHTML = nahuatlContent;
                     }
                 } catch (error) {
                     console.error("Error al procesar las traducciones:", error);

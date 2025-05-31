@@ -1,0 +1,137 @@
+---
+import "../../style/base.css";
+import ClientRouter from "astro/components/ClientRouter.astro";
+
+import IconSettings from "../../components/icons/icon-settings.astro";
+import IconArrowLeft from "../../components/icons/icon-arrowLeft.astro";
+
+import GenericInstructions from "../../components/braille/printer/generic-instructions.astro";
+import IconMicrophone from "../../components/icons/icon-microphone.astro";
+import IconTrash from "../../components/icons/icon-trash.astro";
+import IconCheck from "../../components/icons/icon-check.astro";
+import IconEmbosser from "../../components/icons/icon-embosser.astro";
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Imprimir a braille</title>
+        <link
+            rel="shortcut icon"
+            href="../../../public/isotipo.png"
+            type="image/x-icon"
+        />
+        <ClientRouter />
+    </head>
+    <body class="bg-gradient-generic">
+        <header class="h-[15vh] flex justify-around items-center">
+            <a href="" class="bg-[#EDFEFE] rounded-md">
+                <IconArrowLeft size="64" color="#1a4f5f" stroke="2" />
+            </a>
+            <h1 class="text-quicksand text-[48px] text-[#1F4C5A]">
+                Imprimir a braille
+            </h1>
+            <a href="" class="bg-[#EDFEFE] rounded-md">
+                <IconSettings size="64" color="#1a4f5f" stroke="2" />
+            </a>
+        </header>
+        <main class="flex flex-row gap-5 p-3 w-full h-[85vh]">
+            <aside
+                class="w-2/10 flex flex-col justify-center items-center p-4 gap-2 h-full bg-[#EDFEFE80] rounded-lg"
+            >
+                <h1
+                    class="w-full h-min bg-[#1A5F70] text-[#EDFEFE] text-[24px] text-center text-inter rounded-lg"
+                >
+                    Instrucciones
+                </h1>
+                <GenericInstructions />
+            </aside>
+            <article
+                class="flex flex-row gap-5 p-5 w-8/10 h-full bg-[#EDFEFE80] rounded-lg"
+            >
+                <bmain
+                    class="flex items-center justify-center h-full w-3/4 pt-2.5"
+                >
+                    <label
+                        for="textToImpress"
+                        class="relative border-3 border-[#0B3441] w-full h-full rounded-lg px-4"
+                    >
+                        <h1
+                            class="w-1/3 top-0 -translate-y-[50%] translate-x-[100%] bg-[#1A5F70] text-[#EDFEFE] text-[24px] text-center font-[400] text-inter p-1 rounded-lg"
+                        >
+                            Texto a imprimir
+                        </h1>
+                        <textarea
+                            class="outline-none w-full h-[50%] overflow-y-auto p-1 c-placeholder-text"
+                            id="textToImpress"
+                            placeholder="Ingresa tu texto aquí"
+                            name=""></textarea>
+                        <div
+                            id="brailleResult"
+                            class="w-full h-[35%] border-1 overflow-y-auto"
+                        >
+                        </div>
+                    </label>
+                </bmain>
+                <bside
+                    class="flex flex-col gap-4 pt-2.5 justify-between items-center h-full w-1/4"
+                >
+                    <div
+                        class="h-[20%] cursor-pointer flex flex-col items-center justify-center bg-[#EDFEFE] aspect-square rounded-lg"
+                    >
+                        <IconMicrophone color="#0B3441" size="64" />
+                        <h1 class="text-md text[#0B3441]">Dictado por voz</h1>
+                    </div>
+                    <div
+                        class="h-[20%] cursor-pointer flex flex-col items-center justify-center bg-[#EDFEFE] aspect-square rounded-lg"
+                    >
+                        <IconTrash color="#0B3441" size="64" />
+                        <h1 class="text-md text[#0B3441]">Borrar todo</h1>
+                    </div>
+                    <div
+                        class="h-[20%] cursor-pointer flex flex-col items-center justify-center bg-[#EDFEFE] aspect-square rounded-lg"
+                    >
+                        <IconCheck color="#0B3441" size="64" />
+                        <h1 class="text-md text[#0B3441]">
+                            Impresoras <br /> compatibles
+                        </h1>
+                    </div>
+                    <div
+                        class="h-[20%] cursor-pointer flex flex-col items-center justify-center bg-[#0B3441] aspect-square rounded-lg"
+                        id="printBraille"
+                    >
+                        <IconEmbosser color="#EDFEFE" size="64" />
+                        <h1 class="text-md text-[#EDFEFE]">Imprimir</h1>
+                    </div>
+                </bside>
+            </article>
+        </main>
+    </body>
+</html>
+
+<script>
+    const textToImpress = document.getElementById(
+        "textToImpress",
+    ) as HTMLTextAreaElement;
+    const brailleResult = document.getElementById(
+        "brailleResult",
+    ) as HTMLDivElement;
+
+    const printBraille = document.getElementById(
+        "printBraille",
+    ) as HTMLDivElement;
+
+    printBraille.addEventListener("click", () => {
+        const text = textToImpress.value;
+        console.log(text);
+        console.log(brailleResult);
+        if (text.length > 0) {
+            brailleResult.innerHTML = text;
+
+            const print = window.print();
+        }
+
+    });
+</script>

@@ -5,7 +5,7 @@ import ClientRouter from "astro/components/ClientRouter.astro";
 import LogoCaed from "../components/logos/logo-caed.astro";
 import LogoCbtis from "../components/logos/logo-cbtis.astro";
 
-import IconLeftArrow from "../style/icon-left-arrow.astro";
+import IconLeftArrow from "../components/icons/icon-left-arrow.astro";
 
 import IconAbc from "../components/icons/icon-abc.astro";
 import IconBrailleDots from "../components/icons/icon-braille-dots.astro";
@@ -13,6 +13,9 @@ import IconBrailleDots from "../components/icons/icon-braille-dots.astro";
 import LocalVersion from "../utils/localVersion";
 import IconTranslate from "../components/icons/icon-translate.astro";
 import IconBraille from "../components/icons/icon-braille.astro";
+import IconPrinter from "../components/icons/icon_printer.astro";
+
+
 ---
 
 <!doctype html>
@@ -73,9 +76,9 @@ import IconBraille from "../components/icons/icon-braille.astro";
             >
                 <a
                     id="dictionary-btn"
-                    title="Traductor"
+                    title="Abecedario"
                     class="bg-[#EDFEFE] w-[122px] h-[122px] rounded-[12.5px] flex flex-col justify-center items-center
-                mb-3 drop-shadow-xl
+                mb-3 p-2 drop-shadow-xl
                 cursor-pointer"
                     href="/braille/abecedario"
                 >
@@ -87,6 +90,8 @@ import IconBraille from "../components/icons/icon-braille.astro";
                 >
             </section>
 
+            
+
             <section
                 class="col-span-2 lg:col-span-1 flex flex-col justify-center items-center cursor-pointer
                 hover:scale-110 transition-transform ease-in-out duration-600 hover:drop-shadow-xl"
@@ -95,7 +100,7 @@ import IconBraille from "../components/icons/icon-braille.astro";
                     id="braille-btn"
                     title="Braile"
                     class="bg-[#EDFEFE] w-[122px] h-[122px] rounded-[12.5px] flex justify-center items-center
-                    mb-3 drop-shadow-xl
+                    mb-3 p-2 drop-shadow-xl
                     cursor-pointer"
                     href="/braille/traductor"
                 >
@@ -105,6 +110,26 @@ import IconBraille from "../components/icons/icon-braille.astro";
                     class="c-placeholder-text text-xl text-[#0B3441] cursor-pointer"
                     for="braille-btn">Asistente de braille</label
                 > 
+            </section>
+
+            <section
+                class="flex flex-col justify-center items-center cursor-pointer
+            hover:scale-110 transition-transform ease-in-out duration-600 hover:drop-shadow-xl"
+            >
+                <a
+                    id="dictionary-btn"
+                    title="Imprimir"
+                    class="bg-[#EDFEFE] w-[122px] h-[122px] rounded-[12.5px] flex flex-col justify-center items-center
+                mb-3 p-2 drop-shadow-xl
+                cursor-pointer"
+                    href="/braille/printer"
+                >
+                    <IconPrinter size="95%" />
+                </a>
+                <label
+                    class="c-placeholder-text text-xl text-[#0B3441] cursor-pointer"
+                    for="dictionary-btn">Imprimir a braille</label
+                >
             </section>
         </main>
         

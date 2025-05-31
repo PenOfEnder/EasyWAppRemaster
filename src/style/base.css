@@ -2,7 +2,7 @@
 
 @import "tailwindcss";
 
-.c-title-text {
+.c-title-text, .text-quicksand {
     font-family: "Quicksand", sans-serif;
     
     font-weight: 700;
@@ -22,13 +22,18 @@
     font-style: normal;
 }
 
-.c-placeholder-text {
+.c-placeholder-text  {
     font-family: 'Inter';
     font-optical-sizing: auto;
     font-style: normal;
     font-weight: 600;
 }
 
+.text-inter {
+    font-family: 'Inter';
+    font-optical-sizing: auto;
+    font-style: normal;
+}
 
 .bg-gradient-generic {
     background: linear-gradient(#D2FAFB -33.55%, #1296AD 99.99%);

@@ -1,0 +1,19 @@
+---
+interface Props {
+    index: number;
+}
+const { index } = Astro.props;
+---
+
+<div class="relative flex flex-col items-center justify-center w-full p-1.5 aspect-square border-1 border-[#0B3441] rounded-lg">
+    <slot />
+
+    <indx
+        class="absolute flex items-center justify-center aspect-square w-1/5 
+        bg-[#1A5F70] text-[#EDFEFE] 
+        bottom-1.5 right-1.5
+        text-[20px] rounded-md"
+    >
+        {index}
+    </indx>
+</div>

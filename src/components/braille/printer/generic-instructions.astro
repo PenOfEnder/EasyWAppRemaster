@@ -1,0 +1,29 @@
+---
+import InstructionCard from "./instruction-card.astro";
+
+
+
+import Pen from "../../icons/instructions/generic/pen.astro";
+import Download from "../../icons/instructions/generic/download.astro";
+import Printer from "../../icons/instructions/generic/printer.astro";
+---
+
+<InstructionCard index={1}>
+    <p class="p-1.5 text-center text-inter font-[500] text-[#0B3441]">
+        Ingresa el texto a imprimir en el recuadro
+    </p>
+    <Pen color="#164D5A" size="50%" stroke="4"/>
+</InstructionCard>
+<InstructionCard index={2}>
+    <p class="p-1.5 text-center text-inter font-[500] text-[#0B3441]">
+        Descarga e instala el driver de la impresora
+    </p>
+    <Download color="#164D5A" size="50%" stroke="4"/>
+</InstructionCard>
+
+<InstructionCard index={3}>
+    <p class="p-1.5 text-center text-inter font-[500] text-[#0B3441]">
+        Una vez tengas tu texto, presiona imprimir
+    </p>
+    <Printer color="#164D5A" size="50%" stroke="4" />
+</InstructionCard>
