@@ -10,6 +10,9 @@ import IconMicrophone from "../../components/icons/icon-microphone.astro";
 import IconTrash from "../../components/icons/icon-trash.astro";
 import IconCheck from "../../components/icons/icon-check.astro";
 import IconEmbosser from "../../components/icons/icon-embosser.astro";
+
+import WarningModal from "../../components/modals/warning-modal.astro";
+import VoiceModal from "../../components/modals/voice-modal.astro";
 ---
 
 <!doctype html>
@@ -27,7 +30,7 @@ import IconEmbosser from "../../components/icons/icon-embosser.astro";
     </head>
     <body class="bg-gradient-generic">
         <header class="h-[15vh] flex justify-around items-center">
-            <a href="" class="bg-[#EDFEFE] rounded-md">
+            <a href="/braille" class="bg-[#EDFEFE] rounded-md">
                 <IconArrowLeft size="64" color="#1a4f5f" stroke="2" />
             </a>
             <h1 class="text-quicksand text-[48px] text-[#1F4C5A]">
@@ -56,7 +59,7 @@ import IconEmbosser from "../../components/icons/icon-embosser.astro";
                 >
                     <label
                         for="textToImpress"
-                        class="relative border-3 border-[#0B3441] w-full h-full rounded-lg px-4"
+                        class="border-3 border-[#0B3441] w-full h-full rounded-lg px-4"
                     >
                         <h1
                             class="w-1/3 top-0 -translate-y-[50%] translate-x-[100%] bg-[#1A5F70] text-[#EDFEFE] text-[24px] text-center font-[400] text-inter p-1 rounded-lg"
@@ -64,13 +67,13 @@ import IconEmbosser from "../../components/icons/icon-embosser.astro";
                             Texto a imprimir
                         </h1>
                         <textarea
-                            class="outline-none w-full h-[50%] overflow-y-auto p-1 c-placeholder-text"
+                            class="outline-none w-full h-[90%] overflow-y-auto p-1 c-placeholder-text"
                             id="textToImpress"
                             placeholder="Ingresa tu texto aquí"
                             name=""></textarea>
                         <div
                             id="brailleResult"
-                            class="w-full h-[35%] border-1 overflow-y-auto"
+                            class="w-full h-[35%] overflow-y-auto"
                         >
                         </div>
                     </label>
@@ -80,24 +83,29 @@ import IconEmbosser from "../../components/icons/icon-embosser.astro";
                 >
                     <div
                         class="h-[20%] cursor-pointer flex flex-col items-center justify-center bg-[#EDFEFE] aspect-square rounded-lg"
+                        id="useMicrophone"
                     >
                         <IconMicrophone color="#0B3441" size="64" />
-                        <h1 class="text-md text[#0B3441]">Dictado por voz</h1>
+                        <h1 class="text-center text-md text[#0B3441]">
+                            Dictado por voz
+                        </h1>
                     </div>
                     <div
                         class="h-[20%] cursor-pointer flex flex-col items-center justify-center bg-[#EDFEFE] aspect-square rounded-lg"
+                        id="deleteContent"
                     >
                         <IconTrash color="#0B3441" size="64" />
                         <h1 class="text-md text[#0B3441]">Borrar todo</h1>
                     </div>
-                    <div
+                    <a
+                        href="/braille/allowed-printers"
                         class="h-[20%] cursor-pointer flex flex-col items-center justify-center bg-[#EDFEFE] aspect-square rounded-lg"
                     >
                         <IconCheck color="#0B3441" size="64" />
-                        <h1 class="text-md text[#0B3441]">
-                            Impresoras <br /> compatibles
+                        <h1 class="text-md text-center text[#0B3441]">
+                            Impresoras compatibles
                         </h1>
-                    </div>
+                    </a>
                     <div
                         class="h-[20%] cursor-pointer flex flex-col items-center justify-center bg-[#0B3441] aspect-square rounded-lg"
                         id="printBraille"
@@ -108,10 +116,68 @@ import IconEmbosser from "../../components/icons/icon-embosser.astro";
                 </bside>
             </article>
         </main>
+
+        <WarningModal title="Texto vacio">
+            Por favor, ingresa el texto a imprimir
+        </WarningModal>
+
+        <VoiceModal title="Dictado por voz" />
     </body>
 </html>
 
+<style>
+    #brailleResult {
+        visibility: hidden;
+    }
+    @media print {
+        body * {
+            visibility: hidden;
+        }
+
+        #brailleResult {
+            width: 100%;
+            height: 100%;
+            visibility: visible;
+            position: absolute;
+            top: 0;
+            left: 0;
+            overflow: visible;
+        }
+        @page {
+            margin: 0;
+            size: auto;
+        }
+    }
+
+    bside div {
+        transition: all 0.3s ease-in-out;
+    }
+
+    bside div:hover {
+        transform: scale(1.15);
+        filter: brightness(90%);
+    }
+</style>
+
 <script>
+    // Para borrar ------------------------------
+
+    const deleteContent = document.getElementById(
+        "deleteContent",
+    ) as HTMLDivElement;
+
+    deleteContent.addEventListener("click", () => {
+        textToImpress.value = "";
+        brailleResult.innerHTML = "";
+    });
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Delete") {
+            deleteContent.click();
+        }
+    });
+
+    // Para imprimir -----------------------------
+
     const textToImpress = document.getElementById(
         "textToImpress",
     ) as HTMLTextAreaElement;
@@ -125,13 +191,94 @@ import IconEmbosser from "../../components/icons/icon-embosser.astro";
 
     printBraille.addEventListener("click", () => {
         const text = textToImpress.value;
-        console.log(text);
-        console.log(brailleResult);
         if (text.length > 0) {
             brailleResult.innerHTML = text;
-
-            const print = window.print();
+            window.print();
+        } else {
+            const warningModal = document.getElementById(
+                "warning-modal",
+            ) as HTMLDivElement;
+            warningModal.classList.toggle("hidden");
         }
+    });
 
+    // Activar dictado por voz -----------------------------
+
+    const microphone = document.getElementById(
+        "useMicrophone",
+    ) as HTMLDivElement;
+
+    const voiceModal = document.getElementById("voice-modal") as HTMLElement;
+
+    microphone.addEventListener("click", () => {
+        if (
+            !("webkitSpeechRecognition" in window) &&
+            !("SpeechRecognition" in window)
+        ) {
+            alert("El navegador no soporta el dictado por voz");
+        } else {
+            startRecording();
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Cambia 'tuTextareaId' por el ID de tu textarea
+        const textarea = document.getElementById('textToImpress');
+        
+        let recognition;
+        let escuchando = false;
+        let textoFinal = '';
+        
+        // Configurar reconocimiento de voz
+        if ('webkitSpeechRecognition' in window) {
+            recognition = new webkitSpeechRecognition();
+        } else if ('SpeechRecognition' in window) {
+            recognition = new SpeechRecognition();
+        }
+        
+        if (recognition) {
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            recognition.lang = 'es-ES';
+            
+            // Cuando detecte voz
+            recognition.onresult = function(event) {
+                let textoTemporal = '';
+                
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    let texto = event.results[i][0].transcript;
+                    
+                    if (event.results[i].isFinal) {
+                        textoFinal += texto + ' ';
+                    } else {
+                        textoTemporal += texto;
+                    }
+                }
+                
+                // Poner el texto en el textarea
+                textarea.value = textoFinal + textoTemporal;
+            };
+            
+            // Cuando termine de escuchar
+            recognition.onend = function() {
+                escuchando = false;
+            };
+        }
+        
+        // Botón para iniciar grabación
+        document.getElementById('iniciarGrabacion').addEventListener('click', function() {
+            if (recognition && !escuchando) {
+                recognition.start();
+                escuchando = true;
+            }
+        });
+        
+        // Botón para terminar dictado
+        document.getElementById('terminarDictado').addEventListener('click', function() {
+            if (recognition && escuchando) {
+                recognition.stop();
+                escuchando = false;
+            }
+        });
     });
 </script>

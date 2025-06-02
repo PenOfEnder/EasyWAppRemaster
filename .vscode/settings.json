@@ -1,0 +1,7 @@
+{
+    "CodeGPT.apiKey": "LM Studio",
+    "files.associations": {
+        "*.embeddedhtml": "html",
+        "iostream": "cpp"
+    }
+}

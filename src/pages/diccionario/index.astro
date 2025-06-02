@@ -1,0 +1,73 @@
+---
+import "../../style/base.css";
+import {cbtis212_URL, caed_URL} from "../../utils/urls";
+
+import SearchZone from "../../components/dictionary/search-zone.svelte";
+import IconLeftArrowV2 from "../../components/icons/icon-left-arrow-v2.astro";
+import IconRefresh from "../../components/icons/icon-refresh.astro";
+
+import LogoCaed from "../../components/logos/logo-caed.astro";
+import LogoCbtis from "../../components/logos/logo-cbtis.astro";
+import IconLeftArrow from "../../components/icons/icon-left-arrow.astro";
+
+const alphabet = Array.from("*abcdefghijklmnopqrstuvwxyz");
+---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>Diccionario</title>
+        <link
+            rel="shortcut icon"
+            href="../../../public/isotipo.png"
+            type="image/x-icon"
+        />
+    </head>
+    <body class="bg-gradient-generic">
+        <header class="w-full flex items-center justify-between h-1/5 p-4">
+            <a href={ cbtis212_URL }>
+                <LogoCbtis color="#0B3441" size="80"/>
+            </a>
+            <a href="/" class="bg-[#edfefe] flex justify-center rounded-md">
+                <IconLeftArrowV2 color="#0B3441" size="80"/>
+                
+            </a>
+            <h1 class="c-title-text text-4xl self-center select-none">
+                Diccionario general
+            </h1>
+            <a href="" class="bg-[#edfefe] text-center rounded-md">
+                <IconRefresh color="#0B3441" size="80"/>
+            </a>
+            <a href={ caed_URL }>
+                <LogoCaed color="#0B3441" size="80"/>
+            </a>
+        </header>
+        <nav class="w-full h-1/5 flex items-center gap-2 justify-around p-4">
+            {
+                alphabet.map((letter) => 
+                <a class="flex items-center justify-center p-1 w-full aspect-square rounded-md
+                    bg-[#edfefe80] hover:bg-[#edfefe] text-[#0b3441] hover:text-[#157589]
+                    ease-in-out duration-500 transition-all
+                    "
+                    href={`/diccionario/${letter}/10`}
+                    >
+                        <span
+                            class="text-xl 
+                            
+                            "
+                        >
+                            {letter}
+                        </span>
+                    </a>
+                )
+            }
+        </nav>
+        <main class="h-2/5 p-4">
+            <SearchZone
+            client:load
+            />
+        </main>
+    </body>
+</html>

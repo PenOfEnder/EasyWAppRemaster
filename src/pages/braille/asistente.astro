@@ -3,26 +3,24 @@ import { ClientRouter, fade, slide } from "astro:transitions";
 import "../../style/base.css";
 
 import CustomLetter from "../../components/braille/custom-letter.astro";
-import BrailleTimeline from "../../components/braille/time-line.jsx";
+import BrailleTimelineSvelte from "../../components/braille/time-line.svelte";
+
 
 import LogoCaed from "../../components/logos/logo-caed.astro";
 import LogoCbtis from "../../components/logos/logo-cbtis.astro";
-import IconLeftArrow from "../../style/icon-left-arrow.astro";
+import IconLeftArrow from "../../components/icons/icon-left-arrow.astro";
 
 import LocalVersion from "../../utils/localVersion";
 import Loader from "../../components/loaders/loading-2.astro";
 import IconX from "../../components/icons/icon-x.astro";
 
-const handleLetterChange = (index: number) => {
-    console.log(`Letra cambiada a índice: ${index}`);
-    // Aquí tu lógica adicional
-};
 export const prerender = false; // Hace que la página se renderice en el servidor dinámicamente
 
 const url = new URL(Astro.url);
 const word = url.searchParams.get("word") || ""; // "xd" es el valor por defecto si no hay palabra
 
 const letterArray = Array.from(word);
+
 ---
 
 <!doctype html>
@@ -110,7 +108,7 @@ const letterArray = Array.from(word);
             class="bg-[#EDFEFE80] h-5/6 w-5/6 max-h-[70%] rounded-[12.5px] grid grid-rows-3"
         >
             <section
-                class="row-span-2 flex gap-5 overflow-x-auto w-full pb-2 items-center px-10 scrollbar-hide"
+                class="row-span-2 flex gap-5 overflow-x-auto w-full pb-2 items-center px-10 "
                 id="idTemporal"
             >
                 <div
@@ -126,20 +124,20 @@ const letterArray = Array.from(word);
             </section>
 
             <section
-                class="w-full flex items-center justify-center"
+                class="w-full flex items-center justify-center px-10 o"
                 id="timeline-container"
             >
                 <!-- Aqui va el timeline -->
                 {
-                    (
-                        <BrailleTimeline
-                            letters={" " + word}
-                            currentIndex={0}
-                            onLetterChange={handleLetterChange}
-                            speechOptions={{ saveToLocalStorage: false }}
-                            client:load
-                        />
-                    )
+                    <BrailleTimelineSvelte
+                        client:load
+                        config={
+                            {
+                                word: word,
+                                currentIndex: 0
+                            }
+                        }
+                    />
                 }
             </section>
         </main>
@@ -186,7 +184,7 @@ const letterArray = Array.from(word);
                         tmp_array.push(wordSaved[i]);
                     }
                     setTimeout(() => {
-                        window.location.href = `/braille/traductor?word=${encodeURIComponent(wordSaved)}`;
+                        window.location.href = `/braille/asistente?word=${encodeURIComponent(wordSaved)}`;
                     }, 100);
                 } catch (error) {
                     document.getElementById("loaderDiv")!.style.display =

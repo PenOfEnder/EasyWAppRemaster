@@ -1,0 +1,40 @@
+---
+import "../../style/base.css";
+
+import ClientRouter from "astro/components/ClientRouter.astro";
+import IconArrowLeft from "../../components/icons/icon-arrowLeft.astro";
+
+
+---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>Impresoras compatibles</title>
+        <link
+            rel="shortcut icon"
+            href="../../../public/isotipo.png"
+            type="image/x-icon"
+        />
+        <ClientRouter />
+    </head>
+    <body class="bg-gradient-generic">
+        <header class="flex justify-between h-1/5">
+            <a href="">
+
+            </a>
+            <h1 class="text-[#0b3441]">Impresoras compatibles</h1>
+            <a href="">
+                <IconArrowLeft size="64" color="#0b3441" />
+            </a>
+        </header>
+        <main>
+
+        </main>
+        <footer>
+
+        </footer>
+    </body>
+</html>
