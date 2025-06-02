@@ -3,12 +3,12 @@ import "../../style/base.css";
 import {cbtis212_URL, caed_URL} from "../../utils/urls";
 
 import SearchZone from "../../components/dictionary/search-zone.svelte";
+
 import IconLeftArrowV2 from "../../components/icons/icon-left-arrow-v2.astro";
 import IconRefresh from "../../components/icons/icon-refresh.astro";
 
 import LogoCaed from "../../components/logos/logo-caed.astro";
 import LogoCbtis from "../../components/logos/logo-cbtis.astro";
-import IconLeftArrow from "../../components/icons/icon-left-arrow.astro";
 
 const alphabet = Array.from("*abcdefghijklmnopqrstuvwxyz");
 ---
@@ -51,7 +51,7 @@ const alphabet = Array.from("*abcdefghijklmnopqrstuvwxyz");
                     bg-[#edfefe80] hover:bg-[#edfefe] text-[#0b3441] hover:text-[#157589]
                     ease-in-out duration-500 transition-all
                     "
-                    href={`/diccionario/${letter}/10`}
+                    href={`/diccionario/${letter}/0`}
                     >
                         <span
                             class="text-xl 
