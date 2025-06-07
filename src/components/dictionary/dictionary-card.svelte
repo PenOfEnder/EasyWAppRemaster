@@ -57,24 +57,22 @@
 </script>
 
 <article class="border-black border-2 rounded-[12.5px] p-5 relative mt-5">
-    <div
-        class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#1A5F70] text-center px-2 py-1 rounded-[5px]"
-    >
-        <p class="text-[14pt] text-[#EDFEFE]">{palabraEspanol}</p>
-    </div>
-
     <ul>
         <li class="c-normal-text">
             <strong>
-                • Español: 
+                • {palabraEspanol} <span class="font-[450]"> (Español): </span>
             </strong>
-            <section class="pl-4">
+            {#if significadoEspanol}
+            <section class="pl-4 font-[300]">
                 def. 
                 <span class="pl-4">
                     {significadoEspanol}
                 </span>
             </section>
+            {/if}
         </li>
+        
+        {#if palabraIngles && significadoIngles}
         <li class="c-normal-text">
             <strong>
                 • {palabraIngles} <span class="font-[450]"> (Inglés): </span>
@@ -86,6 +84,9 @@
                 </span>
             </section>
         </li>
+        {/if}
+
+        {#if palabraAleman && significadoAleman}
         <li class="c-normal-text">
             <strong>
                 • {palabraAleman} <span class="font-[450]"> (Alemán): </span>
@@ -97,6 +98,9 @@
                 </span>
             </section>
         </li>
+        {/if}
+
+        {#if palabraFrances && significadoFrances}
         <li class="c-normal-text">
             <strong>
                 • {palabraFrances} <span class="font-[450]"> (Francés): </span>
@@ -108,6 +112,9 @@
                 </span>
             </section>
         </li>
+        {/if}
+
+        {#if palabraPortugues && significadoPortugues}
         <li class="c-normal-text">
             <strong>
                 • {palabraPortugues} <span class="font-[450]"> (Portugués): </span>
@@ -119,28 +126,6 @@
                 </span>
             </section>
         </li>
-        <li class="c-normal-text">
-            <strong>
-                • {palabraNahuatl} <span class="font-[450]"> (Náhuatl): </span>
-            </strong>
-            <section class="pl-4 font-[300]">
-                def. 
-                <span class="pl-4">
-                    {significadoNahuatl}
-                </span>
-            </section>
-        </li>
+        {/if}
     </ul>
-
-    <div>
-        <button class="font-bold"
-        on:click={cargarVideo}
-        >Lengua de señas mexicana >
-        </button>
-        <!-- El > hay que cambiarlo por un icon -->
-    </div>
-
-    <div class="hidden">
-        <iframe title="Video de la palabra"></iframe>
-    </div>
 </article>

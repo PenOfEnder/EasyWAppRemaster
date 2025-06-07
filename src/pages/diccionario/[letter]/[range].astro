@@ -8,6 +8,7 @@ if(letter === "*"){
 import "../../../style/base.css";
 
 import LetterMeaningsZone from "../../../components/dictionary/letter-meanings-zone.svelte";
+import Pagination from "../../../components/dictionary/pagination.svelte";
 
 import LogoCaed from "../../../components/logos/logo-caed.astro";
 import LogoCbtis from "../../../components/logos/logo-cbtis.astro";
@@ -15,8 +16,15 @@ import IconLeftArrowV2 from "../../../components/icons/icon-left-arrow-v2.astro"
 import IconRefresh from "../../../components/icons/icon-refresh.astro";
 
 import {cbtis212_URL, caed_URL} from "../../../utils/urls.js";
+import tursoGlobalClient from "../../../utils/tursoClient";
+import ClientRouter from "astro/components/ClientRouter.astro";
+
 
 const alphabet = Array.from("*abcdefghijklmnopqrstuvwxyz");
+
+const sql_count_words = "SELECT COUNT(*) FROM all_words;"
+
+
 ---
 
 <html lang="en">
@@ -30,32 +38,33 @@ const alphabet = Array.from("*abcdefghijklmnopqrstuvwxyz");
             href="../../../public/isotipo.png"
             type="image/x-icon"
         />
+        <ClientRouter />
     </head>
     <body class="bg-gradient-generic">
-        <header class="w-full flex items-center justify-between h-1/5 p-4">
-            <a href={ cbtis212_URL }>
+        <header class="w-full flex items-center justify-between h-1/5 px-4 py-2">
+            <a href={ cbtis212_URL } class="hidden lg:block">
                 <LogoCbtis color="#0B3441" size="80"/>
             </a>
             <a href="/" class="bg-[#edfefe] flex justify-center rounded-md">
                 <IconLeftArrowV2 color="#0B3441" size="80"/>
                 
             </a>
-            <h1 class="c-title-text text-4xl self-center select-none">
+            <h1 class="c-title-text text-2xl lg:text-4xl text-[#0B3441] self-center select-none text-center">
                 Diccionario general
             </h1>
             <a href="" class="bg-[#edfefe] text-center rounded-md">
                 <IconRefresh color="#0B3441" size="80"/>
             </a>
-            <a href={ caed_URL }>
+            <a href={ caed_URL } class="hidden lg:block">
                 <LogoCaed color="#0B3441" size="80"/>
             </a>
         </header>
-        <nav class="w-full h-1/5 flex items-center gap-2 justify-around p-4">
+        <nav class="w-full h-1/5 flex items-center gap-2 justify-around p-4 overflow-y-auto">
             {
                 alphabet.map((letter) => 
-                <a class="flex items-center justify-center p-1 w-full aspect-square rounded-md
+                <a class="flex items-center justify-center py-2 px-4 w-full aspect-square rounded-md
                     bg-[#edfefe80] hover:bg-[#edfefe] text-[#0b3441] hover:text-[#157589]
-                    ease-in-out duration-500 transition-all
+                    ease-in-out duration-500 transition-all select-none 
                     "
                     href={`/diccionario/${letter}/0`}
                     >
@@ -70,8 +79,16 @@ const alphabet = Array.from("*abcdefghijklmnopqrstuvwxyz");
                 )
             }
         </nav>
-        <main class="h-2/5 p-4">
+        <main class="h-2/5 py-2 px-4">
             <LetterMeaningsZone letter={letter} range = {parseInt(range)} client:load/>
         </main>
+
+        <pagination class="w-full">
+            <Pagination
+                letter={letter}
+                range = {parseInt(range)}
+                client:load
+            />
+        </pagination>
     </body>
 </html>

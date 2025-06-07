@@ -25,6 +25,7 @@ import LocalVersion from "../../utils/localVersion";
     >
         <div
             class="flex justify-center lg:jusitfy-around lg:w-full lg:h-full md:order-1 max-w-[150px]"
+            
         >
             <LogoCbtis size="100%" color="#0b3441" />
         </div>
@@ -39,66 +40,70 @@ import LocalVersion from "../../utils/localVersion";
     </header>
 
     <main class="h-1/2 w-5/6 flex flex-wrap justify-around gap-y-5">
-        <section
+        <a
             class="flex flex-col justify-center items-center cursor-pointer
             hover:scale-110 transition-transform ease-in-out duration-600 hover:drop-shadow-xl"
+            href="/diccionario"
+            aria-label="Ir al diccionario general"
         >
-            <a
+            <section
                 id="dictionary-btn"
-                title="Traductor"
+                title="Diccionario"
                 class="bg-[#EDFEFE] w-[122px] h-[122px] rounded-[12.5px] flex flex-col justify-center items-center
                 mb-3 drop-shadow-xl
                 cursor-pointer"
-                href="/diccionario"
+
             >
                 <IconDictionary size="75%" />
-            </a>
+            </section>
 
             <label
                 class="c-placeholder-text text-xl text-[#0B3441] cursor-pointer"
                 for="dictionary-btn">Diccionario</label
             >
-        </section>
+        </a>
 
-        <section
+        <a
             class="flex flex-col justify-center items-center cursor-pointer
             hover:scale-110 transition-transform ease-in-out duration-600 hover:drop-shadow-xl"
+            href="/traductor"
+            aria-label="Ir al traductor"
         >
-            <a
+            <section
                 id="translate-btn"
-                title="Diccionario"
+                title="Traductor"
                 class="bg-[#EDFEFE] w-[122px] h-[122px] rounded-[12.5px] flex justify-center items-center
                 mb-3 drop-shadow-xl
                 cursor-pointer"
-                href="/traductor"
             >
                 <IconTranslate size="75%" />
-            </a>
+            </section>
             <label
                 class="c-placeholder-text text-xl text-[#0B3441] cursor-pointer"
                 for="translate-btn">Traductor</label
             >
-        </section>
+        </a>
 
-        <section
+        <a
             class="col-span-2 lg:col-span-1 flex flex-col justify-center items-center cursor-pointer
             hover:scale-110 transition-transform ease-in-out duration-600 hover:drop-shadow-xl"
+            href="/braille"
+            aria-label="Ir a la sección de braille"
         >
-            <a
+            <section
                 id="braille-btn"
                 title="Braile"
                 class="bg-[#EDFEFE] w-[122px] h-[122px] rounded-[12.5px] flex justify-center items-center
                 mb-3 drop-shadow-xl
                 cursor-pointer"
-                href="/braille"
             >
                 <IconBraille size="75%" />
-            </a>
+            </section>
             <label
                 class="c-placeholder-text text-xl text-[#0B3441] cursor-pointer"
                 for="braille-btn">Braille</label
             >
-        </section>
+        </a>
     </main>
 
     <footer class="h-fit w-5/6 flex items-center align-center">

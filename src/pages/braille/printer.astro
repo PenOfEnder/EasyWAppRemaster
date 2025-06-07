@@ -203,27 +203,11 @@ import VoiceModal from "../../components/modals/voice-modal.astro";
     });
 
     // Activar dictado por voz -----------------------------
-
-    const microphone = document.getElementById(
-        "useMicrophone",
-    ) as HTMLDivElement;
-
-    const voiceModal = document.getElementById("voice-modal") as HTMLElement;
-
-    microphone.addEventListener("click", () => {
-        if (
-            !("webkitSpeechRecognition" in window) &&
-            !("SpeechRecognition" in window)
-        ) {
-            alert("El navegador no soporta el dictado por voz");
-        } else {
-            startRecording();
-        }
-    });
-
     document.addEventListener('DOMContentLoaded', () => {
-        // Cambia 'tuTextareaId' por el ID de tu textarea
-        const textarea = document.getElementById('textToImpress');
+        // Elementos
+        const microphone = document.getElementById("useMicrophone") as HTMLDivElement;
+        const voiceModal = document.getElementById("voice-modal") as HTMLElement;
+        const textarea = document.getElementById('textToImpress') as HTMLTextAreaElement;
         
         let recognition;
         let escuchando = false;
@@ -263,22 +247,55 @@ import VoiceModal from "../../components/modals/voice-modal.astro";
             recognition.onend = function() {
                 escuchando = false;
             };
+            
+            // Si hay error
+            recognition.onerror = function(event) {
+                console.error('Error:', event.error);
+                escuchando = false;
+            };
         }
         
-        // Botón para iniciar grabación
-        document.getElementById('iniciarGrabacion').addEventListener('click', function() {
-            if (recognition && !escuchando) {
+        // Evento del micrófono - CORREGIDO
+        microphone.addEventListener("click", () => {
+            if (!recognition) {
+                alert("El navegador no soporta el dictado por voz");
+                return;
+            }
+            
+            if (!escuchando) {
+                // Iniciar grabación
                 recognition.start();
                 escuchando = true;
+                console.log('Iniciando dictado...');
+            } else {
+                // Detener grabación
+                recognition.stop();
+                escuchando = false;
+                console.log('Deteniendo dictado...');
             }
         });
         
-        // Botón para terminar dictado
-        document.getElementById('terminarDictado').addEventListener('click', function() {
-            if (recognition && escuchando) {
-                recognition.stop();
-                escuchando = false;
-            }
-        });
+        // Si tienes botones específicos con estos IDs, úsalos:
+        const iniciarBtn = document.getElementById('iniciarGrabacion');
+        const terminarBtn = document.getElementById('terminarDictado');
+        
+        if (iniciarBtn) {
+            iniciarBtn.addEventListener('click', function() {
+                if (recognition && !escuchando) {
+                    recognition.start();
+                    escuchando = true;
+                }
+            });
+        }
+        
+        if (terminarBtn) {
+            terminarBtn.addEventListener('click', function() {
+                if (recognition && escuchando) {
+                    recognition.stop();
+                    escuchando = false;
+                }
+            });
+        }
     });
+
 </script>
