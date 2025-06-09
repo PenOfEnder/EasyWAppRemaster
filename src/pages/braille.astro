@@ -55,13 +55,16 @@ import IconPrinter from "../components/icons/icon_printer.astro";
                 class="flex flex-col justify-center items-center cursor-pointer order-5 lg:order-1 w-1/2
                 hover:scale-110 transition-transform ease-in-out duration-600 hover:drop-shadow-xl"
                 href="/"
+                aria-label="Regresar al menú inicial"
             >
                 <section
                     id="dictionary-btn"
                     title="Traductor"
                     class="bg-[#EDFEFE] w-[122px] h-[122px] rounded-[12.5px] flex flex-col justify-center items-center
-                    mb-3 drop-shadow-xl 
+                    mb-3 drop-shadow-xl
                     cursor-pointer"
+                                    aria-hidden="true"
+
                 >
                     <span class="ml-[25%]">
                         <IconLeftArrow size={"100%"} color="#083441" />
@@ -70,7 +73,10 @@ import IconPrinter from "../components/icons/icon_printer.astro";
 
                 <label
                     class="c-placeholder-text text-xl text-[#0B3441] cursor-pointer"
-                    for="dictionary-btn">Menú inicial</label
+                    for="dictionary-btn"
+                aria-hidden="true"
+                    
+                    >Menú inicial</label
                 >
             </a>
 
@@ -78,6 +84,7 @@ import IconPrinter from "../components/icons/icon_printer.astro";
                 class="flex flex-col justify-center items-center cursor-pointer w-1/2
                         hover:scale-110 transition-transform ease-in-out duration-600 hover:drop-shadow-xl order-2"
                 href="/braille/abecedario"
+                aria-label="Ir a la sección de abecedario en braille"
             >
                 <section
                     id="dictionary-btn"
@@ -85,19 +92,23 @@ import IconPrinter from "../components/icons/icon_printer.astro";
                     class="bg-[#EDFEFE] w-[122px] h-[122px] rounded-[12.5px] flex flex-col justify-center items-center
                 mb-3 p-2 drop-shadow-xl
                 cursor-pointer"
+                    aria-hidden="true"
                 >
                     <IconAbc size="95%" />
                 </section>
                 <label
                     class="c-placeholder-text text-xl text-center text-wrap text-[#0B3441] cursor-pointer"
-                    for="dictionary-btn">Abecedario en braille</label
-                >
+                    for="dictionary-btn"
+                    aria-hidden="true"
+                    >Abecedario en braille
+                </label>
             </a>
 
             <a
                 class="col-span-2 lg:col-span-1 flex flex-col justify-center items-center cursor-pointer order-3 w-1/2
                 hover:scale-110 transition-transform ease-in-out duration-600 hover:drop-shadow-xl"
                 href="/braille/asistente"
+                aria-label="Ir al asistente de braille"
             >
                 <section
                     id="braille-btn"
@@ -105,12 +116,16 @@ import IconPrinter from "../components/icons/icon_printer.astro";
                     class="bg-[#EDFEFE] w-[122px] h-[122px] rounded-[12.5px] flex justify-center items-center
                     mb-3 p-2 drop-shadow-xl
                     cursor-pointer"
+                aria-hidden="true"
                 >
                     <IconBrailleDots size="75%" />
                 </section>
                 <label
-                    class="c-placeholder-text text-xl text-center text-[#0B3441] cursor-pointer "
-                    for="braille-btn">Asistente de braille</label
+                    class="c-placeholder-text text-xl text-center text-[#0B3441] cursor-pointer"
+                    for="braille-btn"
+                aria-hidden="true"
+                    
+                    >Asistente de braille</label
                 >
             </a>
 
@@ -119,6 +134,7 @@ import IconPrinter from "../components/icons/icon_printer.astro";
                 hover:scale-110 transition-transform ease-in-out duration-600 hover:drop-shadow-xl"
                 href="/braille/printer"
                 target="_blank"
+                aria-label="Ir al medio de impresión de braille, solo disponible en desktop"
             >
                 <section
                     id="dictionary-btn"
@@ -126,17 +142,25 @@ import IconPrinter from "../components/icons/icon_printer.astro";
                     class="bg-[#EDFEFE] w-[122px] h-[122px] rounded-[12.5px] flex flex-col justify-center items-center
                 mb-3 p-2 drop-shadow-xl
                 cursor-pointer"
+                aria-hidden="true"
+
                 >
                     <IconPrinter size="95%" />
                 </section>
                 <label
                     class="c-placeholder-text text-xl text-center text-[#0B3441] cursor-pointer"
-                    for="dictionary-btn">Imprimir a braille</label
+                    for="dictionary-btn"
+                aria-hidden="true"
+                    
+                    >Imprimir a braille</label
                 >
             </a>
         </main>
 
-        <footer class="text-center flex items-center w-5/6 justify-center">
+        <footer
+            class="text-center flex items-center w-5/6 justify-center"
+            aria-hidden="true"
+        >
             <span
                 class="text-center text-lg text-[#FFFFFF] font-[600] c-placeholder-text"
             >

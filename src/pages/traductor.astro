@@ -20,6 +20,12 @@ import TranslateCard from "../components/translate/translate-card.astro";
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Diccionario</title>
+        <link
+            rel="shortcut icon"
+            href="../../../public/isotipo.png"
+            type="image/x-icon"
+        />
+        
         <ClientRouter />
         <Loader />
     </head>
@@ -57,7 +63,7 @@ import TranslateCard from "../components/translate/translate-card.astro";
         <main
             class="bg-[#EDFEFE80] w-5/6 rounded-[12.5px] flex flex-col justify-center items-center"
         >
-            <section class="flex flex-col lg:flex-row lg:flex-wrap justify-center w-full ">
+            <section class="flex flex-col lg:flex-row lg:flex-wrap justify-around w-full pt-2">
                 <TranslateCard
                     title="Inglés - English"
                     idParrafo="englishParagraph"
@@ -118,145 +124,147 @@ import TranslateCard from "../components/translate/translate-card.astro";
                 <br /> Designed by DevSpark
             </span>
         </footer>
-    </body><script>
-        const videoPlayer = document.getElementById(
-            "video-player",
-        ) as HTMLVideoElement;
-        const videoSource = document.getElementById(
-            "video-source",
-        ) as HTMLSourceElement;
-        const videoText = document.getElementById(
-            "video-text",
-        ) as HTMLParagraphElement;
+    </body>
+    
+</html>
+<script>
+    const videoPlayer = document.getElementById(
+        "video-player",
+    ) as HTMLVideoElement;
+    const videoSource = document.getElementById(
+        "video-source",
+    ) as HTMLSourceElement;
+    const videoText = document.getElementById(
+        "video-text",
+    ) as HTMLParagraphElement;
 
-        const actualizarResultado = async () => {
-            try {
-                const datos = localStorage.getItem("traduccionData");
-                if (!datos) return;
+    const actualizarResultado = async () => {
+        try {
+            const datos = localStorage.getItem("traduccionData");
+            if (!datos) return;
 
-                let datosJson = JSON.parse(datos);
+            let datosJson = JSON.parse(datos);
 
-                if (!datosJson.respuesta) {
-                    console.error(
-                        "Estructura de datos no válida: falta 'respuesta'",
-                    );
-                    return;
-                }
+            if (!datosJson.respuesta) {
+                console.error(
+                    "Estructura de datos no válida: falta 'respuesta'",
+                );
+                return;
+            }
 
-                const videoExiste = datosJson.respuesta.videoExiste;
+            const videoExiste = datosJson.respuesta.videoExiste;
 
-                // Manejo del video
-                if (videoExiste === true || videoExiste === "true") {
-                    try {
-                        if (!datosJson.Palabra) {
-                            throw new Error(
-                                "No se encontró la palabra para buscar el video",
-                            );
-                        }
-
-                        const respuesta = await fetch(
-                            `https://palabra-clara.onrender.com/descargarVideo/${datosJson.Palabra}`,
+            // Manejo del video
+            if (videoExiste === true || videoExiste === "true") {
+                try {
+                    if (!datosJson.Palabra) {
+                        throw new Error(
+                            "No se encontró la palabra para buscar el video",
                         );
-
-                        if (!respuesta.ok) {
-                            throw new Error(
-                                "Error en la respuesta del servidor",
-                            );
-                        }
-
-                        const blob = await respuesta.blob();
-                        const url = URL.createObjectURL(blob);
-
-                        videoSource.src = url;
-                        videoPlayer.load(); // Recargar el video con la nueva fuente
-                        videoPlayer.classList.remove("hidden");
-                        videoText.classList.add("hidden");
-                    } catch (error) {
-                        console.error("Error al cargar el video:", error);
-                        videoPlayer.classList.add("hidden");
-                        videoText.classList.remove("hidden");
                     }
-                } else {
+
+                    const respuesta = await fetch(
+                        `https://palabra-clara.onrender.com/descargarVideo/${datosJson.Palabra}`,
+                    );
+
+                    if (!respuesta.ok) {
+                        throw new Error(
+                            "Error en la respuesta del servidor",
+                        );
+                    }
+
+                    const blob = await respuesta.blob();
+                    const url = URL.createObjectURL(blob);
+
+                    videoSource.src = url;
+                    videoPlayer.load(); // Recargar el video con la nueva fuente
+                    videoPlayer.classList.remove("hidden");
+                    videoText.classList.add("hidden");
+                } catch (error) {
+                    console.error("Error al cargar el video:", error);
                     videoPlayer.classList.add("hidden");
                     videoText.classList.remove("hidden");
                 }
+            } else {
+                videoPlayer.classList.add("hidden");
+                videoText.classList.remove("hidden");
+            }
 
-                // Procesamiento de traducciones (sin cambios significativos aquí)
-                try {
-                    let traduccionStr = datosJson.respuesta.traduccion;
-                    if (typeof traduccionStr === "string") {
-                        traduccionStr = traduccionStr.replace(
-                            /```json\n|\n```/g,
-                            "",
-                        );
-                    }
-                    let traduccion = JSON.parse(traduccionStr);
+            // Procesamiento de traducciones (sin cambios significativos aquí)
+            try {
+                let traduccionStr = datosJson.respuesta.traduccion;
+                if (typeof traduccionStr === "string") {
+                    traduccionStr = traduccionStr.replace(
+                        /```json\n|\n```/g,
+                        "",
+                    );
+                }
+                let traduccion = JSON.parse(traduccionStr);
 
-                    if (traduccion.en) {
-                        const englishContent =
-                            typeof traduccion.en === "string"
-                                ? traduccion.en
-                                : `<p class="traduccion">${traduccion.en.word + ". " || ""}</p><p class="descripcion">${traduccion.en.desc || ""}</p>`;
-                        document.getElementById("englishParagraph")!.innerHTML =
-                            englishContent;
-                    }
+                if (traduccion.en) {
+                    const englishContent =
+                        typeof traduccion.en === "string"
+                            ? traduccion.en
+                            : `<p class="traduccion">${traduccion.en.word + ". " || ""}</p><p class="descripcion">${traduccion.en.desc || ""}</p>`;
+                    document.getElementById("englishParagraph")!.innerHTML =
+                        englishContent;
+                }
 
-                    if (traduccion.fr) {
-                        const frenchContent =
-                            typeof traduccion.fr === "string"
-                                ? traduccion.fr
-                                : `<p class="traduccion">${traduccion.fr.word + "." || ""}</p><p class="descripcion">${traduccion.fr.desc || ""}</p>`;
+                if (traduccion.fr) {
+                    const frenchContent =
+                        typeof traduccion.fr === "string"
+                            ? traduccion.fr
+                            : `<p class="traduccion">${traduccion.fr.word + "." || ""}</p><p class="descripcion">${traduccion.fr.desc || ""}</p>`;
+                    document.getElementById(
+                        "franchiseParagraph",
+                    )!.innerHTML = frenchContent;
+                }
+
+                if (traduccion.de) {
+                    const aleman = traduccion.de;
+                    if (typeof aleman === "string") {
                         document.getElementById(
-                            "franchiseParagraph",
-                        )!.innerHTML = frenchContent;
-                    }
-
-                    if (traduccion.de) {
-                        const aleman = traduccion.de;
-                        if (typeof aleman === "string") {
-                            document.getElementById(
-                                "germanParagraph",
-                            )!.innerHTML = aleman;
-                        } else {
-                            document.getElementById(
-                                "germanParagraph",
-                            )!.innerHTML = `
-                                <p class="traduccion ">${aleman.trans || ""}</p><br>
-                                <p class="articulo">Articulo: ${aleman.art || ""}</p><br>
-                                ${aleman.desc ? `<p class="descripcion">${aleman.desc}</p>` : ""}`;
-                        }
-                    }
-
-                    if (traduccion.pt) {
-                        const portugalContent =
-                            typeof traduccion.pt === "string"
-                                ? traduccion.pt
-                                : `<p class="traduccion">${traduccion.pt.word + "." || ""}</p><p class="descripcion">${traduccion.pt.desc || ""}</p>`;
+                            "germanParagraph",
+                        )!.innerHTML = aleman;
+                    } else {
                         document.getElementById(
-                            "portuguesParagraph",
-                        )!.innerHTML = portugalContent;
+                            "germanParagraph",
+                        )!.innerHTML = `
+                            <p class="traduccion ">${aleman.trans || ""}</p><br>
+                            <p class="articulo">Articulo: ${aleman.art || ""}</p><br>
+                            ${aleman.desc ? `<p class="descripcion">${aleman.desc}</p>` : ""}`;
                     }
+                }
 
-                    if (traduccion.nah) {
-                        const nahuatlContent =
-                            typeof traduccion.nah === "string"
-                                ? traduccion.nah
-                                : `<p class="traduccion">${traduccion.nah.word + "." || ""}</p><p class="descripcion">${traduccion.nah.desc || ""}</p>`;
-                        document.getElementById(
-                            "nahuatlParagraph",
-                        )!.innerHTML = nahuatlContent;
-                    }
-                } catch (error) {
-                    console.error("Error al procesar las traducciones:", error);
+                if (traduccion.pt) {
+                    const portugalContent =
+                        typeof traduccion.pt === "string"
+                            ? traduccion.pt
+                            : `<p class="traduccion">${traduccion.pt.word + "." || ""}</p><p class="descripcion">${traduccion.pt.desc || ""}</p>`;
+                    document.getElementById(
+                        "portuguesParagraph",
+                    )!.innerHTML = portugalContent;
+                }
+
+                if (traduccion.nah) {
+                    const nahuatlContent =
+                        typeof traduccion.nah === "string"
+                            ? traduccion.nah
+                            : `<p class="traduccion">${traduccion.nah.word + "." || ""}</p><p class="descripcion">${traduccion.nah.desc || ""}</p>`;
+                    document.getElementById(
+                        "nahuatlParagraph",
+                    )!.innerHTML = nahuatlContent;
                 }
             } catch (error) {
-                console.error("Error en actualizarResultado:", error);
-            } finally {
-                document.getElementById("loaderDiv")!.style.display = "none";
+                console.error("Error al procesar las traducciones:", error);
             }
-        };
+        } catch (error) {
+            console.error("Error en actualizarResultado:", error);
+        } finally {
+            document.getElementById("loaderDiv")!.style.display = "none";
+        }
+    };
 
-        addEventListener("traduccionActualizada", actualizarResultado);
-        actualizarResultado();
-    </script>
-</html>
+    addEventListener("traduccionActualizada", actualizarResultado);
+    actualizarResultado();
+</script>

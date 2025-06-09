@@ -13,7 +13,10 @@ let letra = letter.toUpperCase();
 const letterArray = brailleMap[letra] || [0, 0, 0, 0, 0, 0];
 ---
 
-<section class="flex flex-col items-center ">
+<section class="flex flex-col items-center "
+aria-hidden="true"
+
+>
     <strong class="text-[16pt] bg-[#2DD3E3] text-[#0b3441] rounded-t-[3px] pb-0.5 text-center w-1/2">
         {letter.toUpperCase() == " " ? "_" : letter.toUpperCase()}
     </strong>

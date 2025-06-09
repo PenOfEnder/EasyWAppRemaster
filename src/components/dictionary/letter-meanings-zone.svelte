@@ -10,6 +10,29 @@
     // Crear una promesa para manejar todo el proceso de carga
     let dataPromise;
 
+    // Variables para el mapeo de significados
+    let meaningsMap = null;
+
+    // Función para crear mapas de significados
+    function createMeaningsMap(meanings) {
+        const maps = {};
+        
+        // Crear mapas para cada idioma usando Map para búsquedas O(1)
+        maps.spanish = new Map(meanings.spanish.map(m => [m.word, m.sp_meaning]));
+        maps.english = new Map(meanings.english.map(m => [m.word, m.en_meaning]));
+        maps.german = new Map(meanings.german.map(m => [m.word, m.de_meaning]));
+        maps.franch = new Map(meanings.franch.map(m => [m.word, m.fr_meaning || m.franch_meaning])); // Ajusta según tu estructura
+        maps.portuguese = new Map(meanings.portuguese.map(m => [m.word, m.pt_meaning || m.portuguese_meaning])); // Ajusta según tu estructura
+        
+        return maps;
+    }
+
+    // Función para obtener significado
+    function getMeaning(word, language) {
+        if (!meaningsMap || !word) return "def.";
+        return meaningsMap[language]?.get(word) || "def.";
+    }
+
     async function loadData() {
         try {
             // Paso 1: Obtener palabras
@@ -17,7 +40,7 @@
                         WHERE initial_letter = '${letter}'
                         ORDER BY word ASC 
                         LIMIT 10 OFFSET ${range}`;
-            
+
             const result = await tursoGlobalClient.execute(sql_getWords);
             const palabras = result.rows;
 
@@ -27,9 +50,11 @@
 
             // Paso 2: Obtener significados
             const meanings = await findMeanings(palabras);
-            
+
+            // Paso 3: Crear el mapa de significados
+            meaningsMap = createMeaningsMap(meanings);
+
             return { palabras, meanings };
-            
         } catch (error) {
             console.error("Error cargando datos:", error);
             throw error;
@@ -59,14 +84,19 @@
                 temp_sql_portuguese += `SELECT * FROM portuguese_meanings WHERE word = '${words[i].portuguese}'`;
             }
 
-            const [result_spanish, result_english, result_german, result_franch, result_portuguese] = 
-                await Promise.all([
-                    tursoGlobalClient.execute(temp_sql_spanish),
-                    tursoGlobalClient.execute(temp_sql_english),
-                    tursoGlobalClient.execute(temp_sql_german),
-                    tursoGlobalClient.execute(temp_sql_franch),
-                    tursoGlobalClient.execute(temp_sql_portuguese)
-                ]);
+            const [
+                result_spanish,
+                result_english,
+                result_german,
+                result_franch,
+                result_portuguese,
+            ] = await Promise.all([
+                tursoGlobalClient.execute(temp_sql_spanish),
+                tursoGlobalClient.execute(temp_sql_english),
+                tursoGlobalClient.execute(temp_sql_german),
+                tursoGlobalClient.execute(temp_sql_franch),
+                tursoGlobalClient.execute(temp_sql_portuguese),
+            ]);
 
             const meanings = {
                 spanish: result_spanish.rows,
@@ -76,11 +106,9 @@
                 portuguese: result_portuguese.rows,
             };
 
-            console.log(meanings); // Agrega esta línea para imprimir los significados en la consola
-
+            console.log(meanings);
 
             return meanings;
-
         } catch (error) {
             throw error;
         }
@@ -112,14 +140,12 @@
                     palabraAleman={palabra.german}
                     palabraFrances={palabra.franch}
                     palabraPortugues={palabra.portuguese}
-
-                    significadoEspanol={data.meanings.spanish[i].sp_meaning}
-                    significadoIngles={data.meanings.english[i].en_meaning}
-                    significadoAleman={data.meanings.german[i].de_meaning}
-                    significadoFrances={data.meanings.franch}
-                    significadoPortugues={data.meanings.portuguese}
+                    significadoEspanol={getMeaning(palabra.word, "spanish")}
+                    significadoIngles={getMeaning(palabra.english, "english")}
+                    significadoAleman={getMeaning(palabra.german, "german")}
+                    significadoFrances={getMeaning(palabra.franch, "franch")}
+                    significadoPortugues={getMeaning(palabra.portuguese, "portuguese")}
                 />
-                
             {/each}
         {:else}
             <div class="col-span-4 text-center p-4">

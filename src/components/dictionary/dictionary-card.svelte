@@ -67,7 +67,7 @@
 >
     <span
         class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 font-bold bg-[#1A5F70] text-[#edfefe] px-3 py-1 rounded text-inter"
-        aria-hidden="false"
+        aria-hidden="true"
     >
         {palabraEspanol}
     </span>
