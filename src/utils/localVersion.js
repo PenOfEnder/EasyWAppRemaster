@@ -1,2 +1,2 @@
-let LocalVersion = "2.1.3";
+let LocalVersion = "2.3";
 export default LocalVersion
