@@ -76,6 +76,9 @@
                 portuguese: result_portuguese.rows,
             };
 
+            console.log(meanings); // Agrega esta línea para imprimir los significados en la consola
+
+
             return meanings;
 
         } catch (error) {

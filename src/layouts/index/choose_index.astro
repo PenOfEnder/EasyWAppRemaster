@@ -25,15 +25,19 @@ import LocalVersion from "../../utils/localVersion";
     >
         <div
             class="flex justify-center lg:jusitfy-around lg:w-full lg:h-full md:order-1 max-w-[150px]"
-            
+            aria-hidden="true"
         >
             <LogoCbtis size="100%" color="#0b3441" />
         </div>
-        <div class="flex justify-center items-center order-last md:order-2">
+        <div
+            class="flex justify-center items-center order-last md:order-2"
+            aria-hidden="true"
+        >
             <Bienvenido size="100%" color="#0b3441" />
         </div>
         <div
             class="flex justify-between lg:w-full lg:h-full md:order-3 max-w-[150px]"
+            aria-hidden="true"
         >
             <LogoCaed size="100%" color="#0b3441" />
         </div>
@@ -52,14 +56,15 @@ import LocalVersion from "../../utils/localVersion";
                 class="bg-[#EDFEFE] w-[122px] h-[122px] rounded-[12.5px] flex flex-col justify-center items-center
                 mb-3 drop-shadow-xl
                 cursor-pointer"
-
+                aria-hidden="true"
             >
                 <IconDictionary size="75%" />
             </section>
 
             <label
                 class="c-placeholder-text text-xl text-[#0B3441] cursor-pointer"
-                for="dictionary-btn">Diccionario</label
+                for="dictionary-btn"
+                aria-hidden="true">Diccionario</label
             >
         </a>
 
@@ -75,12 +80,14 @@ import LocalVersion from "../../utils/localVersion";
                 class="bg-[#EDFEFE] w-[122px] h-[122px] rounded-[12.5px] flex justify-center items-center
                 mb-3 drop-shadow-xl
                 cursor-pointer"
+                aria-hidden="true"
             >
                 <IconTranslate size="75%" />
             </section>
             <label
                 class="c-placeholder-text text-xl text-[#0B3441] cursor-pointer"
-                for="translate-btn">Traductor</label
+                for="translate-btn"
+                aria-hidden="true">Traductor</label
             >
         </a>
 
@@ -96,17 +103,22 @@ import LocalVersion from "../../utils/localVersion";
                 class="bg-[#EDFEFE] w-[122px] h-[122px] rounded-[12.5px] flex justify-center items-center
                 mb-3 drop-shadow-xl
                 cursor-pointer"
+                aria-hidden="true"
             >
                 <IconBraille size="75%" />
             </section>
             <label
                 class="c-placeholder-text text-xl text-[#0B3441] cursor-pointer"
-                for="braille-btn">Braille</label
+                for="braille-btn"
+                aria-hidden="true">Braille</label
             >
         </a>
     </main>
 
-    <footer class="h-fit w-5/6 flex items-center align-center">
+    <footer
+        class="h-fit w-5/6 flex items-center align-center"
+        aria-hidden="true"
+    >
         <span
             class="text-center text-lg text-[#FFFFFF] font-[600] c-placeholder-text w-full"
         >

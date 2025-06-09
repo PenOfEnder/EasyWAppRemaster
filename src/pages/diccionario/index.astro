@@ -30,20 +30,31 @@ import ClientRouter from "astro/components/ClientRouter.astro";
     </head>
     <body class="bg-gradient-generic">
         <header class="w-full flex items-center justify-between h-1/5 p-4">
-            <a href={ cbtis212_URL } class="hidden lg:block">
+            <a href={ cbtis212_URL } class="hidden lg:block" 
+            aria-hidden="true"
+            >
                 <LogoCbtis color="#0B3441" size="80"/>
             </a>
-            <a href="/" class="bg-[#edfefe] flex justify-center rounded-md">
+            <a href="/" class="bg-[#edfefe] flex justify-center rounded-md"
+                aria-label="Regresar a la página principal"
+            >
                 <IconLeftArrowV2 color="#0B3441" size="80"/>
                 
             </a>
-            <h1 class="c-title-text text-center text-2xl text-[#0B3441] lg:text-4xl self-center select-none">
+            <h1 class="c-title-text text-center text-2xl text-[#0B3441] lg:text-4xl self-center select-none"
+                aria-label="Te encuentras en el diccionario general"
+            >
                 Diccionario general
             </h1>
-            <a href="" class="bg-[#edfefe] text-center rounded-md">
+            <a href="" class="bg-[#edfefe] text-center rounded-md"
+                aria-label="Recargar la página"
+            >
                 <IconRefresh color="#0B3441" size="80"/>
             </a>
-            <a href={ caed_URL } class="hidden lg:block">
+            <a href={ caed_URL } class="hidden lg:block"
+            aria-hidden="true"
+            
+            >
                 <LogoCaed color="#0B3441" size="80"/>
             </a>
         </header>
