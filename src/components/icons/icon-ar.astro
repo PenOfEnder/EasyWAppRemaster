@@ -1,0 +1,40 @@
+---
+interface Props {
+    size?: string;
+    color1?: string;
+    color2?: string;
+    strokeWidth?: string;
+}
+
+const { 
+    size = "128", 
+    color1 = "#1296AD", 
+    color2 = "#0B3441", 
+    strokeWidth = "1.5" 
+} = Astro.props;
+
+// Generar ID único para evitar conflictos
+const gradientId = `gradient-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    width={size} 
+    height={size} 
+    viewBox="0 0 24 24"
+>
+    <defs>
+        <linearGradient id={gradientId} x1="50%" y1="0%" x2="50%" y2="100%">
+            <stop offset="0%" stop-color={color1} />
+            <stop offset="100%" stop-color={color2} />
+        </linearGradient>
+    </defs>
+    <g fill="none" stroke={`url(#${gradientId})`} stroke-width={strokeWidth}>
+        <path d="M2 15V9a6 6 0 0 1 6-6h8a6 6 0 0 1 6 6v6a6 6 0 0 1-6 6H8a6 6 0 0 1-6-6Z"/>
+        <path 
+            stroke-linecap="round" 
+            stroke-linejoin="round" 
+            d="M13 15.5v-2.8m2.857 0c.714 0 2.143 0 2.143-2.1s-1.429-2.1-2.143-2.1H13v4.2m2.857 0H13m2.857 0L18 15.5m-7 0L9.929 13M5 15.5L6.071 13m0 0L8 8.5L9.929 13M6.07 13h3.86"
+        />
+    </g>
+</svg>

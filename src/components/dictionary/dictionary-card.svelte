@@ -35,6 +35,10 @@
     /** @type {string=} Significado en náhuatl */
     export let significadoNahuatl = undefined;
 
+    // Variable para manejar la promesa del video
+    let videoPromise = null;
+    let mostrarVideo = false;
+
     // Función para capitalizar la primera letra de cada palabra
     function capitalizar(texto) {
         if (!texto) return texto;
@@ -56,8 +60,38 @@
     $: palabraPortugues = capitalizar(palabraPortugues);
     $: palabraNahuatl = capitalizar(palabraNahuatl);
 
-    function cargarVideo() {
-        // Implementación pendiente
+    async function cargarVideo(receivedWord) {
+        const url = `https://palabra-clara.onrender.com/descargarVideo/${receivedWord}`;
+        
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`Error al cargar el video: ${response.status}`);
+            }
+            
+            // Crear un blob URL para el video
+            const blob = await response.blob();
+            const videoUrl = URL.createObjectURL(blob);
+            
+            return videoUrl;
+        } catch (error) {
+            console.error('Error cargando video:', error);
+            throw error;
+        }
+    }
+
+    function handleVideoClick() {
+        mostrarVideo = true;
+        videoPromise = cargarVideo(palabraEspanol);
+    }
+
+    function cerrarVideo() {
+        mostrarVideo = false;
+        if (videoPromise) {
+            // Limpiar el blob URL para liberar memoria
+            videoPromise.then(url => URL.revokeObjectURL(url)).catch(() => {});
+            videoPromise = null;
+        }
     }
 </script>
 
@@ -66,7 +100,7 @@
     aria-label={"Definición de " + palabraEspanol +": " + significadoEspanol}
 >
     <span
-        class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 font-bold bg-[#1A5F70] text-[#edfefe] px-3 py-1 rounded text-inter"
+        class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 font-[#1A5F70] text-[#edfefe] px-3 py-1 rounded text-inter bg-[#0b3441]"
         aria-hidden="true"
     >
         {palabraEspanol}
@@ -148,4 +182,44 @@
             </li>
         {/if}
     </ul>
+
+    <section class="mt-4">
+        <button
+            class="font-[700] cursor-transparent border-none text-left p-0 text-inter text-[#1F4C5A] cursor-pointer"
+            on:click={handleVideoClick}
+            aria-label="Cargar video en lengua de señas para {palabraEspanol}"
+        >
+            Video en lengua de señas >
+        </button>
+
+        {#if mostrarVideo}
+            <div class="mt-4">
+                {#await videoPromise}
+                    <div class="flex items-center justify-center p-8">
+                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+                        <span class="ml-2">Cargando video...</span>
+                    </div>
+                {:then videoUrl}
+                    <video 
+                        controls 
+                        class="w-full max-w-md mx-auto rounded-md border-2 border-[#1F4C5A]"
+                        aria-label="Video en lengua de señas para {palabraEspanol}"
+                    >
+                        <source src={videoUrl} type="video/webm" />
+                        Tu navegador no soporta la reproducción de video.
+                    </video>
+                {:catch error}
+                    <div class="text-red-600 rounded">
+                        <p><strong>Error al cargar el video:</strong></p>
+                        <button 
+                            class="mt-2 "
+                            on:click={handleVideoClick}
+                        >
+                            Intentar de nuevo
+                        </button>
+                    </div>
+                {/await}
+            </div>
+        {/if}
+    </section>
 </article>

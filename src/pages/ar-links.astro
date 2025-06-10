@@ -1,0 +1,91 @@
+---
+import LogoCaed from "../components/logos/logo-caed.astro";
+import LogoCbtis from "../components/logos/logo-cbtis.astro";
+import "../style/base.css";
+
+import IconLeftArrow from "../components/icons/icon-left-arrow.astro";
+
+import LocalVersion from "../utils/localVersion";
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Pagina de AR</title>
+    </head>
+    <body
+        class="bg-gradient-generic h-screen w-full flex flex-col items-center"
+    >
+        <header
+            class="row-span-1 flex flex-wrap md:flex-nowrap items-center justify-around lg:justify-around w-5/6 gap-10"
+        >
+            <div
+                class="flex justify-center lg:jusitfy-around lg:w-full lg:h-full md:order-1 max-w-[125px]"
+            >
+                <LogoCbtis size="100%" color="#0b3441" />
+            </div>
+            <div class="flex justify-center items-center order-last md:order-2">
+                <h2
+                    class="text-3xl md:text-4xl font-bold text-[#0b3441] flex items-center text-quicksand text-center"
+                >
+                    Realidad aumentada
+                </h2>
+            </div>
+            <div
+                class="flex justify-between lg:w-full lg:h-full md:order-3 max-w-[125px]"
+            >
+                <LogoCaed size="100%" color="#0b3441" />
+            </div>
+        </header>
+        <main class="flex-1 flex flex-col items-center justify-around p-1">
+            <section class="flex flex-col items-center justify-center p-2 gap-2">
+                <img class="rounded-lg" src="../../public/onirix-qr.png" alt="">
+                <a href="https://player.onirix.com/exp/36NGyJ" class="border-2 rounded-md border-[#1a5f70] p-1.5 text-2xl transition-all duration-400 ease-in-out hover:text-[#157589] text-[#0b3441]">
+                    https://player.onirix.com/exp/36NGyJ
+                </a>
+            </section>
+            <a
+                class="flex flex-col justify-center items-center cursor-pointer order-5 lg:order-1 w-3/4
+                hover:scale-110 transition-transform ease-in-out duration-600 hover:drop-shadow-xl"
+                href="/"
+                aria-label="Regresar al menú inicial"
+            >
+                <section
+                    id="dictionary-btn"
+                    title="Traductor"
+                    class="bg-[#EDFEFE] w-[122px] h-[122px] rounded-[12.5px] flex flex-col justify-center items-center
+                    mb-3 drop-shadow-xl
+                    cursor-pointer"
+                    aria-hidden="true"
+
+                >
+                    <span class="ml-[25%]">
+                        <IconLeftArrow size={"100%"} color="#083441" />
+                    </span>
+                </section>
+
+                <label
+                    class="c-placeholder-text text-xl text-[#0B3441] cursor-pointer"
+                    for="dictionary-btn"
+                aria-hidden="true"
+                    
+                    >Menú inicial</label
+                >
+            </a>
+        </main>
+
+        <footer
+            class="text-center flex items-center w-5/6 justify-center"
+            aria-hidden="true"
+        >
+            <span
+                class="text-center text-lg text-[#FFFFFF] font-[600] c-placeholder-text"
+            >
+                Versión {LocalVersion}
+                <br /> Designed by DevSpark
+            </span>
+        </footer>
+    </body>
+</html>
