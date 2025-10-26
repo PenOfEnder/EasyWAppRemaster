@@ -144,15 +144,16 @@ import TranslateCard from "../components/translate/translate-card.astro";
             if (!datos) return;
 
             let datosJson = JSON.parse(datos);
+            
 
-            if (!datosJson.respuesta) {
+            if (typeof datosJson.traduccion !== "object" ) {
                 console.error(
                     "Estructura de datos no válida: falta 'respuesta'",
                 );
                 return;
             }
 
-            const videoExiste = datosJson.respuesta.videoExiste;
+            const videoExiste = datosJson.video;
 
             // Manejo del video
             if (videoExiste === true || videoExiste === "true") {
@@ -164,7 +165,7 @@ import TranslateCard from "../components/translate/translate-card.astro";
                     }
 
                     const respuesta = await fetch(
-                        `https://palabra-clara.onrender.com/descargarVideo/${datosJson.Palabra}`,
+                        `https://palabraclara.vercel.app/descargarVideo/${datosJson.Palabra}`,
                     );
 
                     if (!respuesta.ok) {
@@ -190,16 +191,17 @@ import TranslateCard from "../components/translate/translate-card.astro";
                 videoText.classList.remove("hidden");
             }
 
-            // Procesamiento de traducciones (sin cambios significativos aquí)
             try {
-                let traduccionStr = datosJson.respuesta.traduccion;
+                console.log("datosJson.traduccion: "+datosJson.traduccion);
+                let traduccionStr = datosJson.traduccion;
                 if (typeof traduccionStr === "string") {
                     traduccionStr = traduccionStr.replace(
                         /```json\n|\n```/g,
                         "",
                     );
                 }
-                let traduccion = JSON.parse(traduccionStr);
+                /* let traduccion = JSON.parse(traduccionStr); */
+                let traduccion = datosJson.traduccion;
 
                 if (traduccion.en) {
                     const englishContent =

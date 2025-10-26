@@ -69,28 +69,23 @@ const c_classes = "bg-[" + color + "] w-full rounded-[25px] px-4";
             "search-bar-input",
         ) as HTMLInputElement | null;
 
-        console.log(inputBuscar)
-
         if (inputBuscar) {
             const texto = inputBuscar.value;
 
             try {
                 document.getElementById("loaderDiv").style.display = "flex" || null;
                 const respuesta = await fetch(
-                    "https://palabra-clara.onrender.com/traducirPalabraGroq",
+                    `https://palabraclara.vercel.app/traducirPalabra/${texto}`,
                     {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: texto,
+                        method: "GET",
+                    
                     },
                 );
+                
                 if (!respuesta.ok) {
                     throw new Error("Error en la respuesta del servidor");
                 }
                 let json = await respuesta.json();
-                console.log(json);
                 json["Palabra"] = texto;
                 localStorage.setItem("traduccionData", JSON.stringify(json));
                 
